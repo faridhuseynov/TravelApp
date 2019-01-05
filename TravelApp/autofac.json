@@ -1,0 +1,31 @@
+{
+  "defaultAssembly": "TravelApp",
+  "components": [
+    { "type": "TravelApp.ViewModels.AppViewModel" },
+    { "type": "TravelApp.ViewModels.StartPageViewModel" },
+    { "type": "TravelApp.ViewModels.SignUpViewModel" },
+    //{ "type": "BookingApp.ViewModels.DashboardViewModel" },
+
+    {
+      "type": "TravelApp.Models.AppDbContext",
+      "instanceScope": "single-instance"
+    },
+    //{
+    //  "type": "ContactList_MVVM.Services.MessageService",
+    //  "services": [
+    //    {
+    //      "type": "ContactList_MVVM.Services.IMessageService"
+    //    }
+    //  ]
+    //},
+    {
+      "type": "TravelApp.Services.NavigationService",
+      "services": [
+        {
+          "type": "TravelApp.Services.INavigationService"
+        }
+      ],
+      "instanceScope": "single-instance"
+    }
+  ]
+}
