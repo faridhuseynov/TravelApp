@@ -42,6 +42,7 @@
                  ItemTemplate="{StaticResource ListBoxTemplate}"></ListBox>
         <Button Grid.Row="2" Grid.ColumnSpan="2"
                 FontSize="30"
-                Content="Add new trip"></Button>
+                Content="Add new trip"
+                Command="{Binding AddNewTripCommand}"></Button>
     </Grid>
 </UserControl>

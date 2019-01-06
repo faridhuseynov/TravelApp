@@ -5,6 +5,7 @@
     { "type": "TravelApp.ViewModels.StartPageViewModel" },
     { "type": "TravelApp.ViewModels.SignUpViewModel" },
     { "type": "TravelApp.ViewModels.TripBoardViewModel" },
+    { "type": "TravelApp.ViewModels.AddNewTripViewModel" },
 
     {
       "type": "TravelApp.Models.AppDbContext",
