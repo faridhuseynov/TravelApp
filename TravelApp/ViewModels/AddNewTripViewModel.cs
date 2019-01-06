@@ -28,7 +28,6 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
             this.db = db;
-            Messenger.Default.Send(new NewTripAddedMessage{ Item=NewTrip});
            
             //Destionations = new ObservableCollection<City>(db.Destionations.Where(x => x.TripId == LoggedInUser));
         }
@@ -53,6 +52,7 @@ namespace TravelApp.ViewModels
                 {
                     db.Trips.Add(NewTrip);
                     db.SaveChanges();
+                    Messenger.Default.Send(new NewTripAddedMessage { Item = NewTrip });
                     navigation.Navigate<TripBoardViewModel>();
                 }
             ));
