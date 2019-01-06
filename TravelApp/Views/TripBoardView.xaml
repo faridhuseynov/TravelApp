@@ -35,6 +35,7 @@
         </Grid.ColumnDefinitions>
         <Button Grid.Row="0" Grid.Column="1"
                 FontSize="20"
+                Command="{Binding LogOutCommand}"
                 Content="Log out"></Button>
         <ListBox Grid.Row="1" Grid.ColumnSpan="2"
                  ItemsSource="{Binding Trips}"

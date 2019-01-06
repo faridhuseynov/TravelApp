@@ -128,6 +128,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Messages\UserLoggedInOrRegisteredMessage.cs" />
+    <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModelLocator.cs" />

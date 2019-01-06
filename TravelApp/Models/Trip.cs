@@ -15,15 +15,16 @@ namespace TravelApp.Models
         [MaxLength(100)]
         public string TripName { get; set; }
 
-        [Required]
+        //[Required]
         public IEnumerable<City> Destinations { get; set; }
 
-        [Required]
+        //[Required]
         public DateTime Departure { get; set; }
 
-        [Required]
+        //[Required]
         public DateTime Arrival { get; set; }
 
+        public int UserId { get; set; }
         public User User { get; set; }
 
         public IEnumerable<TripTask> Tasks { get; set; }

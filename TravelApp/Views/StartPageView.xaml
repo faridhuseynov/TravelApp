@@ -18,7 +18,7 @@
                Content="Username"></Label>
         <TextBox FontSize="30"
                  HorizontalContentAlignment="Center"
-                 Text="{Binding CheckUser}"
+                 Text="{Binding CheckUsername}"
                  Width="400"></TextBox>
         <Label HorizontalAlignment="Center" 
                FontSize="20"

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using TravelApp.Messages;
 using TravelApp.Models;
 using TravelApp.Services;
 
@@ -42,6 +44,7 @@ namespace TravelApp.ViewModels
                     db.SaveChanges();
                     UserDataClear();
                     MessageBox.Show($"User {newUser.UserName} successfully registered!");
+                    Messenger.Default.Send(new UserLoggedInOrRegisteredMessage { UserId = newUser.Id });
                     navigation.Navigate<TripBoardViewModel>();
                 }
             ));
