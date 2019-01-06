@@ -1,5 +1,6 @@
 ﻿<UserControl x:Class="TravelApp.Views.AddNewTripView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -33,25 +34,35 @@
         <CalendarButton></CalendarButton>
     </Grid>-->
     <DockPanel>
-        
-    <StackPanel DockPanel.Dock="Top">
-        <Label FontSize="20">Trip Name</Label>
-        <TextBox FontSize="30"
+
+        <StackPanel DockPanel.Dock="Top">
+            <Label FontSize="20">Trip Name</Label>
+            <TextBox FontSize="30"
                  Margin="10"
                  Text="{Binding NewTrip.TripName}"></TextBox>
-        <Label FontSize="20">Departure Date</Label>
-        <DatePicker Name="dpDep" FontSize="20"
+            <Label FontSize="20">Departure Date</Label>
+            <DatePicker SelectedDate="{Binding Path=NewTrip.Departure,
+            Mode=TwoWay,TargetNullValue={x:Static System:DateTime.Now}}" FontSize="20"
                     Margin="10"
                     Text="Departure Date"></DatePicker>
-        <Label FontSize="20">Arrival Date</Label>
-        <DatePicker Name="dpArr"  FontSize="20"
+            <Label FontSize="20">Arrival Date</Label>
+            <DatePicker SelectedDate="{Binding Path=NewTrip.Arrival,
+            Mode=TwoWay,TargetNullValue={x:Static System:DateTime.Now}}" FontSize="20"
                     Margin="10"
                     Text="Arrival Date"></DatePicker>
-        <Button Background="Aquamarine" FontSize="30"
+            <Button Background="Aquamarine" FontSize="30"
+                Command="{Binding AddNewDestionationsCommand}"
                 Margin="10">Add Destionations</Button>
-    </StackPanel>
-        <Button DockPanel.Dock="Bottom" Height="50"
-                Margin="10"
-                FontSize="20" Content="Cancel"/>
+        </StackPanel>
+        <UniformGrid Rows="1" Columns="2"
+                     DockPanel.Dock="Bottom" >
+            <Button Height="50"
+                  Margin="10"
+                  FontSize="20" Content="Cancel"/>
+            <Button Height="50"
+                    Margin="10"
+                    FontSize="20" Content="OK"
+                    Command="{Binding OkCommand}"></Button>
+        </UniformGrid>
     </DockPanel>
 </UserControl>

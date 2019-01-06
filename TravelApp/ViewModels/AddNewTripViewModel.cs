@@ -40,10 +40,22 @@ namespace TravelApp.ViewModels
                 () =>
                 {
 
-                    navigation.Navigate<AddNewTripViewModel>();
+                    navigation.Navigate<AddDestinationsViewModel>();
                 }
             ));
         }
 
+        private RelayCommand okCommand;
+        public RelayCommand OkCommand
+        {
+            get => okCommand ?? (okCommand = new RelayCommand(
+                () =>
+                {
+                    db.Trips.Add(NewTrip);
+                    db.SaveChanges();
+                    navigation.Navigate<TripBoardViewModel>();
+                }
+            ));
+        }
     }
 }

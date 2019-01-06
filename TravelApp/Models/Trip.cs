@@ -20,10 +20,10 @@ namespace TravelApp.Models
 
 
         //[Required]
-        public DateTime Departure { get; set; }
+        public DateTime Departure { get; set; } 
 
         //[Required]
-        public DateTime Arrival { get; set; }
+        public DateTime Arrival { get; set; } 
 
         public int UserId { get; set; }
         public User User { get; set; }

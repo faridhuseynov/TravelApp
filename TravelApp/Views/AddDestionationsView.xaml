@@ -4,9 +4,58 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TravelApp.Views"
+             xmlns:vm="clr-namespace:TravelApp.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Name="CWindow"
+             d:DataContext="{d:DesignInstance vm:AddDestinationsViewModel}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="DestinationsLBoxTemplate">
+            <DockPanel>
+                <!--<Button 
+                    DockPanel.Dock="Right" 
+                    Command="{Binding DataContext.OpenInfoCommand, ElementName=Window}"
+                    CommandParameter="{Binding}">👁</Button>-->
+                <Button 
+                    DockPanel.Dock="Right" 
+                    Command="{Binding DataContext.DeleteContactCommand, ElementName=CWindow}"
+                    CommandParameter="{Binding}">❌</Button>
+                <Label Content="{Binding CityName}"/>
+            </DockPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" FontSize="20"
+               Margin="10,0">City Name</Label>
+        <TextBox Grid.Row="1" Grid.ColumnSpan="2"
+                 FontSize="30"
+                 Margin="10"></TextBox>
+        <Button Grid.Row="2" FontSize="30"
+                Background="LightGreen"
+                Margin="10"
+                Command="{Binding AddDestionationCommand}">Add</Button>
+        <ListBox Grid.Row="3" Grid.ColumnSpan="2"
+                 ItemsSource="{Binding Destionations}"
+                 ItemTemplate="{StaticResource DestinationsLBoxTemplate}"
+                 Margin="10"></ListBox>
+        <Button Grid.Row="4" Grid.Column="0" Margin="10"
+                FontSize="30"
+                Command="{Binding CancelCommand}">Cancel</Button>
+        <Button Grid.Row="4" Grid.Column="1"
+                FontSize="30"
+                Margin="10"
+                Command="{Binding OkCommand}"
+                CommandParameter="{Binding}">OK</Button>
     </Grid>
 </UserControl>
