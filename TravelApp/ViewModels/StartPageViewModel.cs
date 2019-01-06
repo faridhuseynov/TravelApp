@@ -17,11 +17,14 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
+        private PasswordBox checkPassword;
+        public PasswordBox CheckPassword { get => checkPassword; set => Set(ref checkPassword, value); }
+
         private string photoPath = @"C:\Users\Farid\Desktop\Structure.jpg";
         public string PhotoPath { get => photoPath; set => Set(ref photoPath, value); }
 
-        private string checkUser;
-        public string CheckUser { get => checkUser; set => Set(ref checkUser, value); }
+        private string checkUsername;
+        public string CheckUsername { get => checkUsername; set => Set(ref checkUsername, value); }
 
         //private string checkPassword;
         //public string CheckPassword { get => checkPassword; set => Set(ref checkPassword, value); }
@@ -48,13 +51,13 @@ namespace TravelApp.ViewModels
             get => loginCommand ?? (loginCommand = new RelayCommand<PasswordBox>(
                 param =>
                 {
-                    var check = db.Users.FirstOrDefault(x => x.UserName == checkUser);
+                    var check = db.Users.FirstOrDefault(x => x.UserName == checkUsername);
                     if (check != null)
                     {
                         PhotoPath = check.PhotoLink;
                         if (check.Password == param.Password)
                         {
-                            navigation.Navigate<SignUpViewModel>();
+                            navigation.Navigate<TripBoardViewModel>();
                         }
                         else
                             MessageBox.Show("Password is incorrect!");

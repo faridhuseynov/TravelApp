@@ -8,5 +8,8 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:SignUpViewModel}">
         <v:SignUpView/>
-    </DataTemplate> 
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TripBoardViewModel}">
+        <v:TripBoardView/>
+    </DataTemplate>
 </ResourceDictionary>

@@ -4,7 +4,7 @@
     { "type": "TravelApp.ViewModels.AppViewModel" },
     { "type": "TravelApp.ViewModels.StartPageViewModel" },
     { "type": "TravelApp.ViewModels.SignUpViewModel" },
-    //{ "type": "BookingApp.ViewModels.DashboardViewModel" },
+    { "type": "TravelApp.ViewModels.TripBoardViewModel" },
 
     {
       "type": "TravelApp.Models.AppDbContext",
