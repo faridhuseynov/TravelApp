@@ -19,11 +19,11 @@ namespace TravelApp.Models
         //public IEnumerable<City> Destinations { get; set; }
 
 
-        //[Required]
-        public DateTime Departure { get; set; } 
+        [Required]
+        public DateTime Departure { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
-        //[Required]
-        public DateTime Arrival { get; set; } 
+        [Required]
+        public DateTime Arrival { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
         public int UserId { get; set; }
         public User User { get; set; }

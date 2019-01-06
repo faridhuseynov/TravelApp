@@ -24,6 +24,8 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
+
+
         public TripBoardViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;
@@ -32,9 +34,8 @@ namespace TravelApp.ViewModels
             {
                loggedInUser= msg.UserId;
             });
-
-            Messenger.Default.Register<NewTripAddedMessage>(this, msg => {db.Trips.Add(msg.Item);});
             Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == LoggedInUser));
+            Messenger.Default.Register<NewTripAddedMessage>(this, msg => {db.Trips.Add(msg.Item);});
         }
 
         private RelayCommand logOutCommand;
