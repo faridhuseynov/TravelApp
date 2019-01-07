@@ -13,7 +13,7 @@ namespace TravelApp.Models
 
         [Required]
         [MaxLength(100)]
-        public string TripName { get; set; }
+        public string TripName { get;set; }
 
         ////[Required]
         //public IEnumerable<City> Destinations { get; set; }

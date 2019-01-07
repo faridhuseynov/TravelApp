@@ -38,7 +38,7 @@
                 Command="{Binding LogOutCommand}"
                 Content="Log out"></Button>
         <ListBox Grid.Row="1" Grid.ColumnSpan="2"
-                 ItemsSource="{Binding Trips}"
+                 ItemsSource="{Binding Trips, UpdateSourceTrigger=PropertyChanged}"
                  ItemTemplate="{StaticResource ListBoxTemplate}"></ListBox>
         <Button Grid.Row="2" Grid.ColumnSpan="2"
                 FontSize="30"
