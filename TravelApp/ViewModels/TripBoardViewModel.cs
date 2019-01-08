@@ -35,8 +35,10 @@ namespace TravelApp.ViewModels
                db.LoggedInUser= msg.UserId;
                 db.SaveChanges();
             });
-            Messenger.Default.Register<NewTripAddedMessage>(this, msg => {Trips.Add(msg.Item);});
-            Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == db.LoggedInUser));
+                Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == db.LoggedInUser));
+            Messenger.Default.Register<NewTripAddedMessage>(this, msg => {
+                Trips.Add(msg.Item);
+            });
         }
 
         private RelayCommand logOutCommand;

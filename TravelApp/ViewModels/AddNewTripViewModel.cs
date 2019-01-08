@@ -61,7 +61,6 @@ namespace TravelApp.ViewModels
                     NewTrip.UserId = db.LoggedInUser;
                     db.Trips.Add(NewTrip);
                     db.SaveChanges();
-                    ClearData();
                     Messenger.Default.Send(new NewTripAddedMessage { Item = NewTrip });
                     navigation.Navigate<TripBoardViewModel>();
                 }
