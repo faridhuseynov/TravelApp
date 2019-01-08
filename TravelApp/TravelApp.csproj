@@ -132,6 +132,7 @@
     <Compile Include="Messages\UserLoggedInOrRegisteredMessage.cs" />
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\INavigationService.cs" />
+    <Compile Include="Services\LoggedInUserService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModels\AddDestinationsViewModel.cs" />

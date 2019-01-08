@@ -19,7 +19,8 @@
                     DockPanel.Dock="Right" 
                     Command="{Binding DataContext.DeleteTripCommand, ElementName=TripBoardWindow}"
                     CommandParameter="{Binding}">❌</Button>
-                <Label Content="{Binding TripName}"/>
+                <Label Content="{Binding TripName}" 
+                       HorizontalContentAlignment="Stretch"/>
             </DockPanel>
         </DataTemplate> 
     </UserControl.Resources>
@@ -39,7 +40,8 @@
                 Content="Log out"></Button>
         <ListBox Grid.Row="1" Grid.ColumnSpan="2"
                  ItemsSource="{Binding Trips, UpdateSourceTrigger=PropertyChanged}"
-                 ItemTemplate="{StaticResource ListBoxTemplate}"></ListBox>
+                 ItemTemplate="{StaticResource ListBoxTemplate}"
+                 HorizontalContentAlignment="Stretch"></ListBox>
         <Button Grid.Row="2" Grid.ColumnSpan="2"
                 FontSize="30"
                 Content="Add new trip"

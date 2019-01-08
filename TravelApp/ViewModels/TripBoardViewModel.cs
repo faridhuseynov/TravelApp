@@ -7,24 +7,20 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TravelApp.Messages;
 using TravelApp.Models;
 using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
-    class TripBoardViewModel:ViewModelBase
+    class TripBoardViewModel : ViewModelBase
     {
-        private int loggedInUser;
-        public int LoggedInUser { get => loggedInUser; set => Set(ref loggedInUser, value); }
-
         private ObservableCollection<Trip> trips;
         public ObservableCollection<Trip> Trips { get => trips; set => Set(ref trips, value); }
 
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
-
-
 
         public TripBoardViewModel(INavigationService navigation, AppDbContext db)
         {
@@ -32,12 +28,16 @@ namespace TravelApp.ViewModels
             this.db = db;
             Messenger.Default.Register<UserLoggedInOrRegisteredMessage>(this, msg =>
             {
-               db.LoggedInUser= msg.UserId;
+                db.LoggedInUser = msg.UserId;
                 db.SaveChanges();
-            });
+                MessageBox.Show("Worked!");
                 Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == db.LoggedInUser));
-            Messenger.Default.Register<NewTripAddedMessage>(this, msg => {
+            });
+            Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == db.LoggedInUser));
+            Messenger.Default.Register<NewTripAddedMessage>(this, msg =>
+            {
                 Trips.Add(msg.Item);
+                MessageBox.Show("Worked!");
             });
         }
 
@@ -47,9 +47,9 @@ namespace TravelApp.ViewModels
             get => logOutCommand ?? (logOutCommand = new RelayCommand(
                 () =>
                 {
-                    LoggedInUser = 0;
+                    //LoggedInUser = 0;
                     navigation.Navigate<StartPageViewModel>();
-                }                    
+                }
             ));
         }
 
@@ -59,7 +59,7 @@ namespace TravelApp.ViewModels
             get => addNewTripCommand ?? (addNewTripCommand = new RelayCommand(
                 () =>
                 {
-                    
+
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));

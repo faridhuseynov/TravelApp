@@ -57,7 +57,9 @@ namespace TravelApp.ViewModels
                         PhotoPath = check.PhotoLink;
                         if (check.Password == param.Password)
                         {
-                            Messenger.Default.Send(new UserLoggedInOrRegisteredMessage { UserId = check.Id });
+                            db.LoggedInUser = check.Id;
+                            db.SaveChanges();
+                            Messenger.Default.Send(new UserLoggedInOrRegisteredMessage { UserId = db.LoggedInUser });
                             navigation.Navigate<TripBoardViewModel>();
                         }
                         else
