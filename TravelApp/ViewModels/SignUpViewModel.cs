@@ -40,11 +40,12 @@ namespace TravelApp.ViewModels
                 param =>
                 {
                     newUser.Password = param.Password;
-                    db.Users.Add(newUser);
+                    db.Users.Add(NewUser);
+                    db.LoggedInUser = NewUser.Id;
                     db.SaveChanges();
-                    UserDataClear();
                     MessageBox.Show($"User {newUser.UserName} successfully registered!");
                     Messenger.Default.Send(new UserLoggedInOrRegisteredMessage { UserId = newUser.Id });
+                    //UserDataClear();
                     navigation.Navigate<TripBoardViewModel>();
                 }
             ));
@@ -56,7 +57,7 @@ namespace TravelApp.ViewModels
             get => cancelCommand ?? (cancelCommand = new RelayCommand(
                 () =>
                 {
-                    UserDataClear();
+                    //UserDataClear();
                     navigation.Navigate<StartPageViewModel>();
                 }
             ));
