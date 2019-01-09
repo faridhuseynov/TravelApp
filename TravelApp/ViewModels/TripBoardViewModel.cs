@@ -50,6 +50,7 @@ namespace TravelApp.ViewModels
                 {
                     db.LoggedInUser = 0;
                     db.SaveChanges();
+                    Messenger.Default.Send(new UserLoggedInOrRegisteredMessage { UserId = db.LoggedInUser });
                     navigation.Navigate<StartPageViewModel>();
                 }
             ));
@@ -65,6 +66,5 @@ namespace TravelApp.ViewModels
                 }
             ));
         }
-
     }
 }

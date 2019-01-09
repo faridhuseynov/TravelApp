@@ -18,9 +18,18 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        private Trip newTrip=new Trip();
-        public Trip NewTrip { get => newTrip; set => Set(ref newTrip, value); }
-        
+        //private Trip newTrip=new Trip();
+        //public Trip NewTrip { get => newTrip; set => Set(ref newTrip, value); }
+
+        private string tripName;
+        public string TripName { get => tripName; set => Set(ref tripName, value); }
+
+        private DateTime departure = DateTime.Now;
+        public DateTime Departure { get => departure; set => Set(ref departure, value); }
+
+        private DateTime arrival = DateTime.Now;
+        public DateTime Arrival { get => arrival; set => Set(ref arrival, value); }
+
         private ObservableCollection<City> destionations;
         public ObservableCollection<City> Destionations { get => destionations; set => Set(ref destionations, value); }
 
@@ -42,27 +51,55 @@ namespace TravelApp.ViewModels
             get => addNewDestionationsCommand ?? (addNewDestionationsCommand = new RelayCommand(
                 () =>
                 {
-
                     navigation.Navigate<AddDestinationsViewModel>();
                 }
             ));
         }
-        void ClearData()
+        //void ClearData(Trip NewTrip)
+        //{
+        //    NewTrip.TripName = "";
+        //    NewTrip.Arrival = NewTrip.Departure= new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+        //}
+        private RelayCommand cancelNewTripCommand;
+        public RelayCommand CancelNewTripCommand
         {
-            NewTrip.TripName = "";
-            NewTrip.Arrival = NewTrip.Departure= new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            get => cancelNewTripCommand ?? (cancelNewTripCommand = new RelayCommand(
+                () =>
+                {
+                    TripName = "";
+
+                    navigation.Navigate<TripBoardViewModel>();
+                }
+            ));
         }
+
         private RelayCommand okCommand;
         public RelayCommand OkCommand
         {
             get => okCommand ?? (okCommand = new RelayCommand(
                 () =>
                 {
+                    var NewTrip = new Trip();
                     NewTrip.UserId = db.LoggedInUser;
+                    NewTrip.Arrival = Arrival;
+                    NewTrip.Departure = Departure;
+                    NewTrip.TripName = TripName;
                     db.Trips.Add(NewTrip);
                     db.SaveChanges();
+                    TripName = "";
                     Messenger.Default.Send(new NewTripAddedMessage { Item = NewTrip });
                     navigation.Navigate<TripBoardViewModel>();
+                }
+            ));
+        }
+
+        private RelayCommand addDestionationClicked;
+        public RelayCommand AddDestionationClicked
+        {
+            get => addDestionationClicked ?? (addDestionationClicked = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate<AddDestinationsViewModel>();
                 }
             ));
         }

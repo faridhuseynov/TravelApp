@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TravelApp.Views"
              xmlns:vm="clr-namespace:TravelApp.ViewModels"
+             xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Name="CWindow"
              d:DataContext="{d:DesignInstance vm:AddDestinationsViewModel}">
@@ -28,21 +29,30 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" FontSize="20"
                Margin="10,0">City Name</Label>
         <TextBox Grid.Row="1" Grid.ColumnSpan="2"
                  FontSize="30"
                  Margin="10"></TextBox>
-        <Button Grid.Row="2" FontSize="30"
-                Background="LightGreen"
+        <m:Map Grid.Row="2" Grid.Column="0"
+               Name="Baku"
+               Mode="AerialWithLabels"
+            Margin="5"
+               CredentialsProvider="Apvz3tb29nyul3gC1yacpKfH_QNpJ9pcbCOOLSQNIWL5BDPHPofetaoBQG2KK9_h "></m:Map>
+               <m:Pushpin Location="220,49"/>
+        <Button Grid.Row="2" FontSize="30" Grid.Column="1"
+                Height="50"
+                Background="LightBlue"
+                Foreground="Black"
+                FontWeight="Bold"
                 Margin="10"
                 Command="{Binding AddDestionationCommand}">Add</Button>
         <ListBox Grid.Row="3" Grid.ColumnSpan="2"

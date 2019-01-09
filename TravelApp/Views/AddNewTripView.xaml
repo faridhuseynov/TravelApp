@@ -39,14 +39,14 @@
             <Label FontSize="20">Trip Name</Label>
             <TextBox FontSize="30"
                  Margin="10"
-                 Text="{Binding NewTrip.TripName}"></TextBox>
+                 Text="{Binding TripName}"></TextBox>
             <Label FontSize="20">Departure Date</Label>
-            <DatePicker SelectedDate="{Binding Path=NewTrip.Departure,
+            <DatePicker SelectedDate="{Binding Path=Departure,
             Mode=TwoWay,TargetNullValue={x:Static System:DateTime.Now}}" FontSize="20"
                     Margin="10"
                     Text="Departure Date"></DatePicker>
             <Label FontSize="20">Arrival Date</Label>
-            <DatePicker SelectedDate="{Binding Path=NewTrip.Arrival,
+            <DatePicker SelectedDate="{Binding Path=Arrival,
             Mode=TwoWay,TargetNullValue={x:Static System:DateTime.Now}}" FontSize="20"
                     Margin="10"
                     Text="Arrival Date"></DatePicker>
@@ -57,8 +57,9 @@
         <UniformGrid Rows="1" Columns="2"
                      DockPanel.Dock="Bottom" >
             <Button Height="50"
-                  Margin="10"
-                  FontSize="20" Content="Cancel"/>
+                    Margin="10"
+                    FontSize="20" Content="Cancel"
+                    Command="{Binding CancelNewTripCommand}"/>
             <Button Height="50"
                     Margin="10"
                     FontSize="20" Content="OK"
