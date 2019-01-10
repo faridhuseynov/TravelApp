@@ -14,7 +14,7 @@ namespace TravelApp.Models
         public string Country { get; set; }
         public string Currency { get; set; }
 
-        public Location Coordinates { get; set; }
+        public Location Coordinates { get; set; } = new Location();
         //public string Longitude { get; set; }
         //public string Lattitude { get; set; }
         public int TripId { get; set; }

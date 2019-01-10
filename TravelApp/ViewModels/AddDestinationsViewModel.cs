@@ -46,13 +46,13 @@ namespace TravelApp.ViewModels
                     try
                     {
                         WebClient webClient = new WebClient();
-                        var query = webClient.DownloadString($"http://open.mapquestapi.com/geocoding/v1/address?key=dp0ZzMx1Za1461WOtG1KE8emvuSexkvL&location={cityName}");
+                        var query = webClient.DownloadString($"http://open.mapquestapi.com/geocoding/v1/address?key=dp0ZzMx1Za1461WOtG1KE8emvuSexkvL&location={CityName}");
                         var result = JsonConvert.DeserializeObject(query) as JObject;
                         var NewCity = new City();
-                        NewCity.Country=result["results"]["locations"]["adminArea1"].ToString();
+                        NewCity.Country=result["results"][0]["locations"][0]["adminArea1"].ToString();
                         NewCity.CityName = CityName;
-                        NewCity.Coordinates.Latitude =Double.Parse(result["results"]["locations"]["latLng"]["lat"].ToString());
-                        NewCity.Coordinates.Longitude = Double.Parse(result["results"]["locations"]["latLng"]["lng"].ToString());
+                        NewCity.Coordinates.Latitude = double.Parse(result["results"][0]["locations"][0]["latLng"]["lat"].ToString());
+                        NewCity.Coordinates.Longitude = double.Parse(result["results"][0]["locations"][0]["latLng"]["lng"].ToString());
                         CityName = "";
                     }
                     catch (Exception ex)

@@ -54,7 +54,7 @@
                 Foreground="Black"
                 FontWeight="Bold"
                 Margin="10"
-                Command="{Binding AddDestionationCommand}">Add</Button>
+                Command="{Binding AddCityCommand}">Add</Button>
         <ListBox Grid.Row="3" Grid.ColumnSpan="2"
                  ItemsSource="{Binding Destionations}"
                  ItemTemplate="{StaticResource DestinationsLBoxTemplate}"
