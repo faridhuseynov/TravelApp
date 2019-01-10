@@ -41,13 +41,13 @@
                Margin="10,0">City Name</Label>
         <TextBox Grid.Row="1" Grid.ColumnSpan="2"
                  FontSize="30"
-                 Margin="10"></TextBox>
+                 Margin="10"
+                 Text="{Binding CityName}"></TextBox>
         <m:Map Grid.Row="2" Grid.Column="0"
-               Name="Baku"
                Mode="AerialWithLabels"
-            Margin="5"
+               Margin="5"
                CredentialsProvider="Apvz3tb29nyul3gC1yacpKfH_QNpJ9pcbCOOLSQNIWL5BDPHPofetaoBQG2KK9_h "></m:Map>
-               <m:Pushpin Location="220,49"/>
+               <m:Pushpin Location="{Binding NewCity.Coordinates}"/>
         <Button Grid.Row="2" FontSize="30" Grid.Column="1"
                 Height="50"
                 Background="LightBlue"
@@ -58,7 +58,9 @@
         <ListBox Grid.Row="3" Grid.ColumnSpan="2"
                  ItemsSource="{Binding Destionations}"
                  ItemTemplate="{StaticResource DestinationsLBoxTemplate}"
-                 Margin="10"></ListBox>
+                 Margin="10"
+                 HorizontalContentAlignment="Stretch"
+                 FontSize="20"></ListBox>
         <Button Grid.Row="4" Grid.Column="0" Margin="10"
                 FontSize="30"
                 Command="{Binding CancelCommand}">Cancel</Button>
