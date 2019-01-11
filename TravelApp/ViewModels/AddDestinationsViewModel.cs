@@ -77,5 +77,17 @@ namespace TravelApp.ViewModels
                 }
             ));
         }
+
+        private RelayCommand cancelCommand;
+        public RelayCommand CancelCommand
+        {
+            get => cancelCommand ?? (cancelCommand = new RelayCommand(
+                () =>
+                {
+                    CityName = "";
+                    navigation.Navigate<AddNewTripViewModel>();
+                }
+            ));
+        }
     }
 }

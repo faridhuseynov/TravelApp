@@ -46,11 +46,12 @@
         <m:Map Grid.Row="2" Grid.Column="0"
                Mode="AerialWithLabels"
                Margin="5"
-               CredentialsProvider="Apvz3tb29nyul3gC1yacpKfH_QNpJ9pcbCOOLSQNIWL5BDPHPofetaoBQG2KK9_h "
-               Center="30,20"
-               ZoomLevel="5"
-               ></m:Map>               
-        <m:Pushpin Location="{Binding NewCity.Coordinates}"/>
+               CredentialsProvider="Apvz3tb29nyul3gC1yacpKfH_QNpJ9pcbCOOLSQNIWL5BDPHPofetaoBQG2KK9_h"               
+               Center="50,10"
+               ZoomLevel="5"               
+               ></m:Map>
+        <m:Pushpin 
+            Location="{Binding NewCity.Coordinates}" Content="{Binding CityName}"></m:Pushpin>
         <Button Grid.Row="2" FontSize="30" Grid.Column="1"
                 Height="50"
                 Background="LightBlue"

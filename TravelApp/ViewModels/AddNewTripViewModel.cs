@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TravelApp.Messages;
 using TravelApp.Models;
 using TravelApp.Services;
@@ -76,6 +77,7 @@ namespace TravelApp.ViewModels
                         msg.NewCity.TripId = NewTrip.Id;
                         db.Cities.Add(msg.NewCity);
                         db.SaveChanges();
+                        MessageBox.Show("CityAddRegistered!");
                     });
                     db.Trips.Add(NewTrip);
                     db.SaveChanges();
