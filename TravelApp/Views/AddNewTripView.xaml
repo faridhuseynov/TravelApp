@@ -51,7 +51,7 @@
                     Margin="10"
                     Text="Arrival Date"></DatePicker>
             <Button Background="Aquamarine" FontSize="30"
-                Command="{Binding AddNewDestionationsCommand}"
+                Command="{Binding AddCityCommand}"
                 Margin="10">Add Destionations</Button>
         </StackPanel>
         <UniformGrid Rows="1" Columns="2"

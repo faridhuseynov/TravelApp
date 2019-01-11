@@ -131,6 +131,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Messages\DestinationAddedMessage.cs" />
     <Compile Include="Messages\NewTripAddedMessage.cs" />
     <Compile Include="Messages\UserLoggedInOrRegisteredMessage.cs" />
     <Compile Include="Services\IMessageService.cs" />

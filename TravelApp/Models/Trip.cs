@@ -15,10 +15,6 @@ namespace TravelApp.Models
         [MaxLength(100)]
         public string TripName { get;set; }
 
-        ////[Required]
-        //public IEnumerable<City> Destinations { get; set; }
-
-
         [Required]
         public DateTime Departure { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
@@ -30,7 +26,7 @@ namespace TravelApp.Models
 
         public IEnumerable<TripTask> Tasks { get; set; }
 
-        public IEnumerable<City> Destinations { get; set; }
+        public IEnumerable<City> Cities { get; set; }
 
     }
 }

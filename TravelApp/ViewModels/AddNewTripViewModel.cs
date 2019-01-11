@@ -30,9 +30,6 @@ namespace TravelApp.ViewModels
         private DateTime arrival = DateTime.Now;
         public DateTime Arrival { get => arrival; set => Set(ref arrival, value); }
 
-        private ObservableCollection<City> destionations;
-        public ObservableCollection<City> Destionations { get => destionations; set => Set(ref destionations, value); }
-
         public AddNewTripViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;
@@ -42,19 +39,9 @@ namespace TravelApp.ViewModels
                 db.LoggedInUser = msg.UserId;
                 db.SaveChanges();
             });
-            //Destionations = new ObservableCollection<City>(db.Destionations.Where(x => x.TripId == LoggedInUser));
         }
 
-        private RelayCommand addNewDestionationsCommand;
-        public RelayCommand AddNewDestionationsCommand
-        {
-            get => addNewDestionationsCommand ?? (addNewDestionationsCommand = new RelayCommand(
-                () =>
-                {
-                    navigation.Navigate<AddDestinationsViewModel>();
-                }
-            ));
-        }
+       
         //void ClearData(Trip NewTrip)
         //{
         //    NewTrip.TripName = "";
@@ -84,6 +71,12 @@ namespace TravelApp.ViewModels
                     NewTrip.Arrival = Arrival;
                     NewTrip.Departure = Departure;
                     NewTrip.TripName = TripName;
+                    Messenger.Default.Register<DestinationAddedMessage>(this, msg =>
+                    {
+                        msg.NewCity.TripId = NewTrip.Id;
+                        db.Cities.Add(msg.NewCity);
+                        db.SaveChanges();
+                    });
                     db.Trips.Add(NewTrip);
                     db.SaveChanges();
                     TripName = "";
@@ -92,11 +85,10 @@ namespace TravelApp.ViewModels
                 }
             ));
         }
-
-        private RelayCommand addDestionationClicked;
-        public RelayCommand AddDestionationClicked
+        private RelayCommand addCityCommand;
+        public RelayCommand AddCityCommand
         {
-            get => addDestionationClicked ?? (addDestionationClicked = new RelayCommand(
+            get => addCityCommand ?? (addCityCommand = new RelayCommand(
                 () =>
                 {
                     navigation.Navigate<AddDestinationsViewModel>();
@@ -104,4 +96,5 @@ namespace TravelApp.ViewModels
             ));
         }
     }
+
 }

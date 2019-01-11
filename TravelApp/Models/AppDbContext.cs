@@ -16,8 +16,8 @@ namespace TravelApp.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Trip> Trips { get; set; }
-        public DbSet<TripTask> Tasks { get; set; }
-        public DbSet <City> Destionations { get; set; }
+        public DbSet<TripTask> TripTasks { get; set; }
+        public DbSet <City> Cities { get; set; }
         public int LoggedInUser { get; set; }
     }
 }
