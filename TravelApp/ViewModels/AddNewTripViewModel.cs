@@ -72,7 +72,7 @@ namespace TravelApp.ViewModels
                     NewTrip.Arrival = Arrival;
                     NewTrip.Departure = Departure;
                     NewTrip.TripName = TripName;
-                    Messenger.Default.Register<DestinationAddedMessage>(this, msg =>
+                    Messenger.Default.Register<CityAddedMessage>(this, msg =>
                     {
                         msg.NewCity.TripId = NewTrip.Id;
                         db.Cities.Add(msg.NewCity);

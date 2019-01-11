@@ -7,7 +7,7 @@ using TravelApp.Models;
 
 namespace TravelApp.Messages
 {
-    class DestinationAddedMessage
+    class CityAddedMessage
     {
         public City NewCity { get; set; }
     }
