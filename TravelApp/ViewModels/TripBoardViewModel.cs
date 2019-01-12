@@ -39,7 +39,7 @@ namespace TravelApp.ViewModels
                 //Trips.Add(msg.Item);
                 Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == db.LoggedInUser));
                 MessageBox.Show("Adding trip Worked!");
-            });
+            },true);
         }
 
         private RelayCommand logOutCommand;
