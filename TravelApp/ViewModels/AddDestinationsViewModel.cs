@@ -23,14 +23,11 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        //private City city;
-        //public City City { get => city; set => Set(ref city, value); }
-
         private string cityName;
         public string CityName { get => cityName; set => Set(ref cityName, value); }
 
-        private City nCity;
-        public City NCity { get => nCity; set => Set(ref nCity, value); }
+        private City tempCity;
+        public City TempCity { get => tempCity; set => Set(ref tempCity, value); }
 
         private Pushpin pushpin;
         public Pushpin Pushpin { get => pushpin; set => Set(ref pushpin, value); }
@@ -54,18 +51,20 @@ namespace TravelApp.ViewModels
                 {
                     try
                     {
-                        WebClient webClient = new WebClient();
-                        var query = webClient.DownloadString($"http://open.mapquestapi.com/geocoding/v1/address?key=dp0ZzMx1Za1461WOtG1KE8emvuSexkvL&location={CityName}");
-                        var result = JsonConvert.DeserializeObject(query) as JObject;
-                        NCity = new City();
-                        NCity.Country=result["results"][0]["locations"][0]["adminArea1"].ToString();
-                        NCity.CityName = CityName;
-                        NCity.Coordinates.Latitude = double.Parse(result["results"][0]["locations"][0]["latLng"]["lat"].ToString());
-                        NCity.Coordinates.Longitude = double.Parse(result["results"][0]["locations"][0]["latLng"]["lng"].ToString());
-                        Pushpin = new Pushpin();
-                        Pushpin.Location = NCity.Coordinates;
+                        TempCity = new City();
+                        using (WebClient webClient = new WebClient())
+                        {
+                            var query = webClient.DownloadString($"http://open.mapquestapi.com/geocoding/v1/address?key=dp0ZzMx1Za1461WOtG1KE8emvuSexkvL&location={CityName}");
+                            var result = JsonConvert.DeserializeObject(query) as JObject;
+                            TempCity.Country = result["results"][0]["locations"][0]["adminArea1"].ToString();
+                            TempCity.CityName = CityName;
+                            TempCity.Coordinates.Latitude = double.Parse(result["results"][0]["locations"][0]["latLng"]["lat"].ToString());
+                            TempCity.Coordinates.Longitude = double.Parse(result["results"][0]["locations"][0]["latLng"]["lng"].ToString());
+                            Pushpin = new Pushpin();
+                            Pushpin.Location = TempCity.Coordinates;
+                        }
                         //CityName = "";
-                        Destionations.Add(NCity);
+                        Destionations.Add(TempCity);
                     }
                     catch (Exception ex)
                     {
@@ -81,7 +80,7 @@ namespace TravelApp.ViewModels
             get => okCommand ?? (okCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new CityAddedMessage { NewCity = NCity });
+                    Messenger.Default.Send(new CityAddedMessage { NewCity = TempCity });
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));

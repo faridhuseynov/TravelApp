@@ -40,6 +40,13 @@ namespace TravelApp.ViewModels
                 db.LoggedInUser = msg.UserId;
                 db.SaveChanges();
             });
+            Messenger.Default.Register<CityAddedMessage>(this, msg =>
+            {
+                msg.NewCity.TripId = 1;
+                db.Cities.Add(msg.NewCity);
+                db.SaveChanges();
+                MessageBox.Show("CityAddRegistered!");
+            });
         }
 
 
@@ -72,16 +79,10 @@ namespace TravelApp.ViewModels
                     NewTrip.Arrival = Arrival;
                     NewTrip.Departure = Departure;
                     NewTrip.TripName = TripName;
-                    Messenger.Default.Register<CityAddedMessage>(this, msg =>
-                    {
-                        msg.NewCity.TripId = NewTrip.Id;
-                        db.Cities.Add(msg.NewCity);
-                        db.SaveChanges();
-                        MessageBox.Show("CityAddRegistered!");
-                    });
                     db.Trips.Add(NewTrip);
                     db.SaveChanges();
                     TripName = "";
+
                     Messenger.Default.Send(new NewTripAddedMessage { Item = NewTrip });
                     navigation.Navigate<TripBoardViewModel>();
                 }
