@@ -27,7 +27,7 @@ namespace TravelApp.ViewModels
             this.navigation = navigation;
             this.db = db;
 
-            Messenger.Default.Register<UserLoggedInOrRegisteredMessage>(this, msg =>
+            Messenger.Default.Register<UserLoggedInOrOutOrRegistered>(this, msg =>
             {
                 db.LoggedInUser = msg.UserId;
                 db.SaveChanges();
@@ -37,7 +37,7 @@ namespace TravelApp.ViewModels
 
             Messenger.Default.Register<NewTripAddedMessage>(this, msg =>
             {
-                Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == db.LoggedInUser));
+                Trips.Add(msg.Item);
                 MessageBox.Show("Adding trip Worked!");
             },true);
         }
@@ -50,7 +50,7 @@ namespace TravelApp.ViewModels
                 {
                     db.LoggedInUser = 0;
                     db.SaveChanges();
-                    Messenger.Default.Send(new UserLoggedInOrRegisteredMessage { UserId = db.LoggedInUser });
+                    Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = db.LoggedInUser });
                     navigation.Navigate<StartPageViewModel>();
                 }
             ));

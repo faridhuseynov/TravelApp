@@ -59,7 +59,7 @@ namespace TravelApp.ViewModels
                         {
                             db.LoggedInUser = check.Id;
                             db.SaveChanges();
-                            Messenger.Default.Send(new UserLoggedInOrRegisteredMessage { UserId = db.LoggedInUser });
+                            Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = db.LoggedInUser });
                             navigation.Navigate<TripBoardViewModel>();
                         }
                         else

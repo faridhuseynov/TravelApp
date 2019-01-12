@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TravelApp.Messages
 {
-    class UserLoggedInOrRegisteredMessage
+    class UserLoggedInOrOutOrRegistered
     {
         public int UserId { get; set; }
     }

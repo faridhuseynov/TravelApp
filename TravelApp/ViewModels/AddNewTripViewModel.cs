@@ -35,7 +35,7 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
             this.db = db;
-            Messenger.Default.Register<UserLoggedInOrRegisteredMessage>(this, msg =>
+            Messenger.Default.Register<UserLoggedInOrOutOrRegistered>(this, msg =>
             {
                 db.LoggedInUser = msg.UserId;
                 db.SaveChanges();
