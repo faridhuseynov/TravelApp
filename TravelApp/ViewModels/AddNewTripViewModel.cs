@@ -42,12 +42,12 @@ namespace TravelApp.ViewModels
             });
         }
 
-       
-        //void ClearData(Trip NewTrip)
-        //{
-        //    NewTrip.TripName = "";
-        //    NewTrip.Arrival = NewTrip.Departure= new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-        //}
+
+        void ClearData(Trip NewTrip)
+        {
+            NewTrip.TripName = "";
+            NewTrip.Arrival = NewTrip.Departure = DateTime.Now ;
+        }
         private RelayCommand cancelNewTripCommand;
         public RelayCommand CancelNewTripCommand
         {

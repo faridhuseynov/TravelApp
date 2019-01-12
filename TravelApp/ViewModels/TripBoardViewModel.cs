@@ -26,6 +26,7 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
             this.db = db;
+
             Messenger.Default.Register<UserLoggedInOrRegisteredMessage>(this, msg =>
             {
                 db.LoggedInUser = msg.UserId;
@@ -33,10 +34,9 @@ namespace TravelApp.ViewModels
                 MessageBox.Show("Worked!");
                 Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == db.LoggedInUser));
             });
-            Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == db.LoggedInUser));
+
             Messenger.Default.Register<NewTripAddedMessage>(this, msg =>
             {
-                //Trips.Add(msg.Item);
                 Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == db.LoggedInUser));
                 MessageBox.Show("Adding trip Worked!");
             },true);

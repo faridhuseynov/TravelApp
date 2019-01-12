@@ -16,6 +16,7 @@ namespace TravelApp.Models
         public string TripName { get;set; }
 
         [Required]
+        //public DateTime Departure { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
         public DateTime Departure { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
         [Required]
