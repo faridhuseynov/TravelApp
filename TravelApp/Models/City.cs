@@ -23,5 +23,7 @@ namespace TravelApp.Models
         public string Latitude { get; set; }
 
         public string Longitude { get; set; }
+
+        public IEnumerable<Trip> Trips { get; set; }
     }
 }

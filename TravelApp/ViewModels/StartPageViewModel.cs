@@ -25,9 +25,6 @@ namespace TravelApp.ViewModels
         private string checkUsername;
         public string CheckUsername { get => checkUsername; set => Set(ref checkUsername, value); }
 
-        //private string checkPassword;
-        //public string CheckPassword { get => checkPassword; set => Set(ref checkPassword, value); }
-
         public StartPageViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;

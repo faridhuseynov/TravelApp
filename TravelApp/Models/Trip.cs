@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TravelApp.Models
 {
-    class Trip
+    public class Trip
     {
         public int Id { get; set; }
 
@@ -26,9 +26,9 @@ namespace TravelApp.Models
         public int UserId { get; set; }
         public User User { get; set; }
 
-        public ObservableCollection<TripTask> Tasks { get; set; }
+        public virtual ICollection<TaskList> TaskList { get; set; }
+        public virtual ICollection<DestinationList> Destinations { get; set; }
 
-        public ObservableCollection<City> Cities { get; set; }
 
     }
 }

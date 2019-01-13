@@ -30,15 +30,14 @@ namespace TravelApp.ViewModels
         private Pushpin latLon;
         public Pushpin LatLon { get => latLon; set => Set(ref latLon, value); }
         
-        private ObservableCollection<City> destinations;
-        public ObservableCollection<City> Destinations { get => destinations; set => Set(ref destinations, value); }
+        private ICollection<DestinationList> destinations;
+        public ICollection<DestinationList> Destinations { get => destinations; set => Set(ref destinations, value); }
 
         public AddDestinationsViewModel(INavigationService navigation, AppDbContext db, IApiService apiService)
         {
             this.navigation = navigation;
             this.db = db;
             this.apiService = apiService;
-            Destinations = new ObservableCollection<City>();
         }
         
         private RelayCommand addCityCommand;
@@ -60,7 +59,7 @@ namespace TravelApp.ViewModels
                             LatLon.Location.Longitude = lon;
                             db.Cities.Add(NewCity);
                             db.SaveChanges();
-                            Destinations.Add(NewCity);
+                            Destinations.Add(new DestinationList{ CityId= db.Cities.First(x => x.CityName == CityName).Id});
                         }
                         
                         //CityName = "";
@@ -79,7 +78,7 @@ namespace TravelApp.ViewModels
             get => okCommand ?? (okCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new CityListAddedMessage { NewCityList = Destinations });
+                    Messenger.Default.Send(new DestinationListAddedMessage { NewCityList = Destinations });
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));

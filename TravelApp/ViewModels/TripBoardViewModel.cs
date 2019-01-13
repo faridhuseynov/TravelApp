@@ -31,14 +31,12 @@ namespace TravelApp.ViewModels
             {
                 db.LoggedInUser = msg.UserId;
                 db.SaveChanges();
-                MessageBox.Show("Worked!");
                 Trips = new ObservableCollection<Trip>(db.Trips.Where(x => x.UserId == db.LoggedInUser));
             });
 
             Messenger.Default.Register<NewTripAddedMessage>(this, msg =>
             {
                 Trips.Add(msg.Item);
-                MessageBox.Show("Adding trip Worked!");
             },true);
         }
 

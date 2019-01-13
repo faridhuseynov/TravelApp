@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TravelApp.Models
 {
-    class User
+    public class User
     {
         public int Id { get; set; }
 

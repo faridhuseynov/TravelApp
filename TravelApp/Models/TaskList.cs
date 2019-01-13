@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TravelApp.Models
 {
-    class TripTask
+    public class TaskList
     {
         public int Id { get; set; }
-        public string TaskName { get; set; }
-        public bool Status { get; set; } = false;
+        public int TaskId { get; set; }
+        public Task TripTask { get; set; }
     }
 }

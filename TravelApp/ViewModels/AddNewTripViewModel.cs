@@ -31,8 +31,8 @@ namespace TravelApp.ViewModels
         private DateTime arrival = DateTime.Now;
         public DateTime Arrival { get => arrival; set => Set(ref arrival, value); }
 
-        private ObservableCollection<City> cities;
-        public ObservableCollection<City> Cities { get => cities; set => Set(ref cities, value); }
+        private ICollection<DestinationList> cities;
+        public ICollection<DestinationList> Cities { get => cities; set => Set(ref cities, value); }
 
         public AddNewTripViewModel(INavigationService navigation, AppDbContext db)
         {
@@ -43,8 +43,7 @@ namespace TravelApp.ViewModels
                 db.LoggedInUser = msg.UserId;
                 db.SaveChanges();
             });
-            Cities = new ObservableCollection<City>();
-            Messenger.Default.Register<CityListAddedMessage>(this, msg =>
+            Messenger.Default.Register<DestinationListAddedMessage>(this, msg =>
             {
                 Cities = msg.NewCityList;
             },true);
@@ -63,7 +62,7 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     TripName = "";
-                    Cities = new ObservableCollection<City>();
+                    Cities.Clear();
                     navigation.Navigate<TripBoardViewModel>();
                 }
             ));
@@ -81,7 +80,8 @@ namespace TravelApp.ViewModels
                     NewTrip.Departure = Departure;
                     NewTrip.TripName = TripName;
                     TripName = "";
-                    NewTrip.Cities = Cities;
+                    //new ICollection<City>
+                    NewTrip.Destinations = (Cities);
                     db.Trips.Add(NewTrip);
                     db.SaveChanges();
                     Messenger.Default.Send(new NewTripAddedMessage { Item = NewTrip });

@@ -8,8 +8,8 @@ using TravelApp.Models;
 
 namespace TravelApp.Messages
 {
-    class CityListAddedMessage
+    class DestinationListAddedMessage
     {
-        public ObservableCollection<City> NewCityList { get; set; } = new ObservableCollection<City>();
+        public ICollection<DestinationList> NewCityList { get; set; }
     }
 }

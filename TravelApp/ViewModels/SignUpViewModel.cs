@@ -43,7 +43,7 @@ namespace TravelApp.ViewModels
                     db.Users.Add(NewUser);
                     db.LoggedInUser = NewUser.Id;
                     db.SaveChanges();
-                    MessageBox.Show($"User {newUser.UserName} successfully registered!");
+                    //MessageBox.Show($"User {newUser.UserName} successfully registered!");
                     Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = newUser.Id });
                     //UserDataClear();
                     navigation.Navigate<TripBoardViewModel>();

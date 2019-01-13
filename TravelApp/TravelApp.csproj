@@ -131,9 +131,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Messages\CityListAddedMessage.cs" />
+    <Compile Include="Messages\DestinationListAddedMessage.cs" />
     <Compile Include="Messages\NewTripAddedMessage.cs" />
     <Compile Include="Messages\UserLoggedInOrOutOrRegisteredMessage.cs" />
+    <Compile Include="Models\DestinationList.cs" />
+    <Compile Include="Models\TaskList.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\IApiService.cs" />
     <Compile Include="Services\INavigationService.cs" />
@@ -168,7 +170,7 @@
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Trip.cs" />
-    <Compile Include="Models\TripTask.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
