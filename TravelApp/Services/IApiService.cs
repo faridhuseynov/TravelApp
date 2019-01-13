@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelApp.Models;
 
-namespace TravelApp.Messages
+namespace TravelApp.Services
 {
-    class CityAddedMessage
+    interface IApiService
     {
-        public City NewCity { get; set; }
+        City GetCity(string CityName);
     }
 }

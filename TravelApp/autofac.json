@@ -12,14 +12,14 @@
       "type": "TravelApp.Models.AppDbContext",
       "instanceScope": "single-instance"
     },
-    //{
-    //  "type": "ContactList_MVVM.Services.MessageService",
-    //  "services": [
-    //    {
-    //      "type": "ContactList_MVVM.Services.IMessageService"
-    //    }
-    //  ]
-    //},
+    {
+      "type": "TravelApp.Services.ApiService",
+      "services": [
+        {
+          "type": "TravelApp.Services.IApiService"
+        }
+      ]
+    },
     {
       "type": "TravelApp.Services.NavigationService",
       "services": [

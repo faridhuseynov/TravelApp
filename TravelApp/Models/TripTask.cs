@@ -11,7 +11,5 @@ namespace TravelApp.Models
         public int Id { get; set; }
         public string TaskName { get; set; }
         public bool Status { get; set; } = false;
-        public int TripId { get; set; }
-        public Trip Trip { get; set; }
     }
 }

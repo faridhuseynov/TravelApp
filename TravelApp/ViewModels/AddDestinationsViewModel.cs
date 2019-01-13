@@ -22,25 +22,23 @@ namespace TravelApp.ViewModels
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
+        private readonly IApiService apiService;
 
         private string cityName;
         public string CityName { get => cityName; set => Set(ref cityName, value); }
 
-        private City tempCity;
-        public City TempCity { get => tempCity; set => Set(ref tempCity, value); }
-
-        private Pushpin pushpin;
-        public Pushpin Pushpin { get => pushpin; set => Set(ref pushpin, value); }
+        private Pushpin latLon;
+        public Pushpin LatLon { get => latLon; set => Set(ref latLon, value); }
         
-        private ObservableCollection<City> destionations=new ObservableCollection<City>();
-        public ObservableCollection<City> Destionations { get => destionations; set => Set(ref destionations, value); }
+        private ObservableCollection<City> destinations;
+        public ObservableCollection<City> Destinations { get => destinations; set => Set(ref destinations, value); }
 
-        public AddDestinationsViewModel(INavigationService navigation, AppDbContext db)
+        public AddDestinationsViewModel(INavigationService navigation, AppDbContext db, IApiService apiService)
         {
             this.navigation = navigation;
             this.db = db;
-            
-            Destionations = new ObservableCollection<City>();
+            this.apiService = apiService;
+            Destinations = new ObservableCollection<City>();
         }
         
         private RelayCommand addCityCommand;
@@ -51,20 +49,21 @@ namespace TravelApp.ViewModels
                 {
                     try
                     {
-                        TempCity = new City();
-                        using (WebClient webClient = new WebClient())
+                        var NewCity = apiService.GetCity(CityName);
+                        if (NewCity!=null)
                         {
-                            var query = webClient.DownloadString($"http://open.mapquestapi.com/geocoding/v1/address?key=dp0ZzMx1Za1461WOtG1KE8emvuSexkvL&location={CityName}");
-                            var result = JsonConvert.DeserializeObject(query) as JObject;
-                            TempCity.Country = result["results"][0]["locations"][0]["adminArea1"].ToString();
-                            TempCity.CityName = CityName;
-                            TempCity.Coordinates.Latitude = double.Parse(result["results"][0]["locations"][0]["latLng"]["lat"].ToString());
-                            TempCity.Coordinates.Longitude = double.Parse(result["results"][0]["locations"][0]["latLng"]["lng"].ToString());
-                            Pushpin = new Pushpin();
-                            Pushpin.Location = TempCity.Coordinates;
+                            LatLon = new Pushpin();
+                            LatLon.Location=new Location();
+                            double lat= double.Parse(NewCity.Latitude);
+                            double lon= double.Parse(NewCity.Longitude);
+                            LatLon.Location.Latitude = lat;
+                            LatLon.Location.Longitude = lon;
+                            db.Cities.Add(NewCity);
+                            db.SaveChanges();
+                            Destinations.Add(NewCity);
                         }
+                        
                         //CityName = "";
-                        Destionations.Add(TempCity);
                     }
                     catch (Exception ex)
                     {
@@ -80,7 +79,7 @@ namespace TravelApp.ViewModels
             get => okCommand ?? (okCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new CityAddedMessage { NewCity = TempCity });
+                    Messenger.Default.Send(new CityListAddedMessage { NewCityList = Destinations });
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));

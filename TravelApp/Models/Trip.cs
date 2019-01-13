@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -25,9 +26,9 @@ namespace TravelApp.Models
         public int UserId { get; set; }
         public User User { get; set; }
 
-        public IEnumerable<TripTask> Tasks { get; set; }
+        public ObservableCollection<TripTask> Tasks { get; set; }
 
-        public IEnumerable<City> Cities { get; set; }
+        public ObservableCollection<City> Cities { get; set; }
 
     }
 }

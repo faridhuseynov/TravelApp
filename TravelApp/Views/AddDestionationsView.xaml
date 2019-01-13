@@ -20,7 +20,13 @@
                     DockPanel.Dock="Right" 
                     Command="{Binding DataContext.DeleteContactCommand, ElementName=CWindow}"
                     CommandParameter="{Binding}">❌</Button>
-                <Label Content="{Binding CityName}"/>
+                <DockPanel DockPanel.Dock="Left" Height="50">
+                    <Image DockPanel.Dock="Right"
+                           Source="{Binding ImagePath}"
+                           Height="50"
+                           Width="300"/>
+                    <Label Content="{Binding CityName}"/>
+                </DockPanel>
             </DockPanel>
         </DataTemplate>
     </UserControl.Resources>
@@ -42,25 +48,17 @@
         <TextBox Grid.Row="1" Grid.ColumnSpan="2"
                  FontSize="30"
                  Margin="10"
-                 Text="{Binding CityName}"></TextBox>
-        <!--<m:Map Grid.Row="2" Grid.Column="0" Name="MP"
-               AnimationLevel="UserInput"
-               Mode="AerialWithLabels"
-               Margin="5"
-               CredentialsProvider="Apvz3tb29nyul3gC1yacpKfH_QNpJ9pcbCOOLSQNIWL5BDPHPofetaoBQG2KK9_h"               
-               Center="50,10"
-               ZoomLevel="5"               
-            <m:Pushpin TextSearch.Text="{Binding CityName}"
-                   Location="{Binding NewCity.Coordinates}" Content="{Binding CityName}"/>
-        </m:Map>-->
+                 Text="{Binding CityName}"></TextBox>        
         <Grid Grid.Row="2" Grid.Column="0" x:Name="LayoutRoot"
               Background="White">
             <m:Map AnimationLevel="Full"
                    Mode="AerialWithLabels"
-                   Margin="5"
+                   Margin="10"
                    CredentialsProvider="Apvz3tb29nyul3gC1yacpKfH_QNpJ9pcbCOOLSQNIWL5BDPHPofetaoBQG2KK9_h"
-                   Center="50,10" ZoomLevel="6">
-                <m:Pushpin m:MapLayer.Position="{Binding Pushpin}"/>
+                   ZoomLevel="6"
+                   m:MapLayer.Position="{Binding LatLon.Location,UpdateSourceTrigger=PropertyChanged}"
+                   Center="40,49">
+                <m:Pushpin m:MapLayer.Position="{Binding LatLon.Location,UpdateSourceTrigger=PropertyChanged}"/>
             </m:Map>
         </Grid>
         <Button Grid.Row="2" FontSize="30" Grid.Column="1"
@@ -71,7 +69,7 @@
                 Margin="10"
                 Command="{Binding AddCityCommand}">Add</Button>
         <ListBox Grid.Row="3" Grid.ColumnSpan="2"
-                 ItemsSource="{Binding Destionations}"
+                 ItemsSource="{Binding Destinations}"
                  ItemTemplate="{StaticResource DestinationsLBoxTemplate}"
                  Margin="10"
                  HorizontalContentAlignment="Stretch"
