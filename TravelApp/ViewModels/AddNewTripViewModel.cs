@@ -46,6 +46,8 @@ namespace TravelApp.ViewModels
             Messenger.Default.Register<DestinationListAddedMessage>(this, msg =>
             {
                 Cities = msg.NewCityList;
+
+                MessageBox.Show("Added");
             },true);
         }
 

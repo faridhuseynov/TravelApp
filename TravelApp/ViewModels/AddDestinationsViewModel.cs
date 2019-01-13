@@ -30,7 +30,7 @@ namespace TravelApp.ViewModels
         private Pushpin latLon;
         public Pushpin LatLon { get => latLon; set => Set(ref latLon, value); }
         
-        private ICollection<DestinationList> destinations;
+        private ICollection<DestinationList> destinations= new ObservableCollection<DestinationList>();
         public ICollection<DestinationList> Destinations { get => destinations; set => Set(ref destinations, value); }
 
         public AddDestinationsViewModel(INavigationService navigation, AppDbContext db, IApiService apiService)
@@ -60,9 +60,9 @@ namespace TravelApp.ViewModels
                             db.Cities.Add(NewCity);
                             db.SaveChanges();
                             Destinations.Add(new DestinationList{ CityId= db.Cities.First(x => x.CityName == CityName).Id});
+                            CityName = "";
                         }
                         
-                        //CityName = "";
                     }
                     catch (Exception ex)
                     {

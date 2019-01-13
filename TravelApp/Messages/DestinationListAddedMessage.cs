@@ -10,6 +10,6 @@ namespace TravelApp.Messages
 {
     class DestinationListAddedMessage
     {
-        public ICollection<DestinationList> NewCityList { get; set; }
+        public ICollection<DestinationList> NewCityList { get; set; } = new ObservableCollection<DestinationList>();
     }
 }
