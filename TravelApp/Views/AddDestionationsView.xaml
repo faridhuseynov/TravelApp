@@ -17,8 +17,9 @@
                     Command="{Binding DataContext.OpenInfoCommand, ElementName=Window}"
                     CommandParameter="{Binding}">👁</Button>-->
                 <Button 
-                    DockPanel.Dock="Right" 
-                    Command="{Binding DataContext.DeleteContactCommand, ElementName=CWindow}"
+                    DockPanel.Dock="Right" Width="50"
+                    Margin="10,0"
+                    Command="{Binding DataContext.DeleteDestinationCommand, ElementName=CWindow}"
                     CommandParameter="{Binding}">❌</Button>
                 <DockPanel DockPanel.Dock="Left" Height="50">
                     <Image DockPanel.Dock="Right"
@@ -69,7 +70,7 @@
                 Margin="10"
                 Command="{Binding AddCityCommand}">Add</Button>
         <ListBox Grid.Row="3" Grid.ColumnSpan="2"
-                 ItemsSource="{Binding Destinations}"
+                 ItemsSource="{Binding CityView}"
                  ItemTemplate="{StaticResource DestinationsLBoxTemplate}"
                  Margin="10"
                  HorizontalContentAlignment="Stretch"

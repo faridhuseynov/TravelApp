@@ -29,7 +29,10 @@ namespace TravelApp.ViewModels
 
         private Pushpin latLon;
         public Pushpin LatLon { get => latLon; set => Set(ref latLon, value); }
-        
+
+        private ICollection<City> cityView = new ObservableCollection<City>();
+        public ICollection<City> CityView { get => cityView; set => Set(ref cityView, value); }
+
         private ICollection<DestinationList> destinations= new ObservableCollection<DestinationList>();
         public ICollection<DestinationList> Destinations { get => destinations; set => Set(ref destinations, value); }
 
@@ -48,21 +51,27 @@ namespace TravelApp.ViewModels
                 {
                     try
                     {
-                        var NewCity = apiService.GetCity(CityName);
-                        if (NewCity!=null)
+                        var NewCity = db.Cities.FirstOrDefault(x => x.CityName == CityName);
+                        if (NewCity == null)
                         {
+                            NewCity = apiService.GetCity(CityName);
+                            if (NewCity.CityName==null)
+                            {
+                                MessageBox.Show("Check city name and try again");
+                                return;
+                            }
+                            db.Cities.Add(NewCity);
+                            db.SaveChanges();
+                        }
                             LatLon = new Pushpin();
                             LatLon.Location=new Location();
                             double lat= double.Parse(NewCity.Latitude);
                             double lon= double.Parse(NewCity.Longitude);
                             LatLon.Location.Latitude = lat;
                             LatLon.Location.Longitude = lon;
-                            db.Cities.Add(NewCity);
-                            db.SaveChanges();
+                            CityView.Add(NewCity);
                             Destinations.Add(new DestinationList{ CityId= db.Cities.First(x => x.CityName == CityName).Id});
-                            CityName = "";
-                        }
-                        
+                            CityName = "";                                             
                     }
                     catch (Exception ex)
                     {
@@ -92,6 +101,20 @@ namespace TravelApp.ViewModels
                 {
                     CityName = "";
                     navigation.Navigate<AddNewTripViewModel>();
+                }
+            ));
+        }
+
+
+        private RelayCommand<City> deleteDestinationCommand;
+        public RelayCommand<City> DeleteDestinationCommand
+        {
+            get => deleteDestinationCommand ?? (deleteDestinationCommand = new RelayCommand<City>(
+                param =>
+                {
+                    CityView.Remove(param);
+                    var dest = Destinations.First(x => x.CityId == param.Id);
+                    Destinations.Remove(Destinations.First(x => x.CityId == param.Id));
                 }
             ));
         }
