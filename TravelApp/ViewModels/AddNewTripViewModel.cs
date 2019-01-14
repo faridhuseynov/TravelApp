@@ -83,7 +83,7 @@ namespace TravelApp.ViewModels
                     NewTrip.TripName = TripName;
                     TripName = "";
                     //new ICollection<City>
-                    NewTrip.Destinations = (Cities);
+                    NewTrip.Destinations = Cities;
                     db.Trips.Add(NewTrip);
                     db.SaveChanges();
                     Messenger.Default.Send(new NewTripAddedMessage { Item = NewTrip });

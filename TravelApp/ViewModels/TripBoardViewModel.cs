@@ -64,5 +64,21 @@ namespace TravelApp.ViewModels
                 }
             ));
         }
+        
+             private RelayCommand<Trip> deleteTripCommand;
+        public RelayCommand<Trip> DeleteTripCommand
+        {
+            get => deleteTripCommand ?? (deleteTripCommand = new RelayCommand<Trip>(
+                param =>
+                {
+                    Trips.Remove(param);
+                    var item = db.Trips.Where(x => x.Id == param.Id).FirstOrDefault();
+                    item.Destinations.Clear();
+                    db.SaveChanges();
+                    db.Trips.Remove(param);
+                    db.SaveChanges();
+                }
+            ));
+        }
     }
 }
