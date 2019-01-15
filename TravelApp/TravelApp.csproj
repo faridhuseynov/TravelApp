@@ -133,6 +133,7 @@
     </Compile>
     <Compile Include="Messages\DestinationListAddedMessage.cs" />
     <Compile Include="Messages\NewTripAddedMessage.cs" />
+    <Compile Include="Messages\TaskListAddedMessage.cs" />
     <Compile Include="Messages\UserLoggedInOrOutOrRegisteredMessage.cs" />
     <Compile Include="Models\DestinationList.cs" />
     <Compile Include="Models\TaskList.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModels\AddDestinationsViewModel.cs" />
+    <Compile Include="ViewModels\AddNewTripTaskViewModel.cs" />
     <Compile Include="ViewModels\AddNewTripViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
@@ -151,6 +153,9 @@
     <Compile Include="ViewModels\TripBoardViewModel.cs" />
     <Compile Include="Views\AddDestionationsView.xaml.cs">
       <DependentUpon>AddDestionationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddNewTripTaskView.xaml.cs">
+      <DependentUpon>AddNewTripTaskView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddNewTripView.xaml.cs">
       <DependentUpon>AddNewTripView.xaml</DependentUpon>
@@ -210,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddDestionationsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddNewTripTaskView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

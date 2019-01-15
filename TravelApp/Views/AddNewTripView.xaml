@@ -34,7 +34,6 @@
         <CalendarButton></CalendarButton>
     </Grid>-->
     <DockPanel>
-
         <StackPanel DockPanel.Dock="Top">
             <Label FontSize="20">Trip Name</Label>
             <TextBox FontSize="30"
@@ -50,9 +49,14 @@
             Mode=TwoWay,TargetNullValue={x:Static System:DateTime.Now}}" FontSize="20"
                     Margin="10"
                     Text="Arrival Date"></DatePicker>
-            <Button Background="Aquamarine" FontSize="30"
+            <UniformGrid Height="100" Grid.Row="1" Grid.Column="2">
+                <Button Grid.Column="0" Background="Aquamarine" FontSize="25"
                 Command="{Binding AddCityCommand}"
-                Margin="10">Add Destionations</Button>
+                Margin="5">Add Destionations</Button>
+                <Button Grid.Column="1" Background="CadetBlue" FontSize="25"
+                Command="{Binding AddTaskCommand}"
+                Margin="5">Add Tasks</Button>
+            </UniformGrid>
         </StackPanel>
         <UniformGrid Rows="1" Columns="2"
                      DockPanel.Dock="Bottom" >

@@ -21,6 +21,7 @@ namespace TravelApp
         private TripBoardViewModel tripBoardViewModel;
         private AddNewTripViewModel addNewTripViewModel;
         private AddDestinationsViewModel addDestinationsViewModel;
+        private AddNewTripTaskViewModel addNewTripTaskViewModel;
 
         private INavigationService navigationService;
         private IMessageService messageService;
@@ -39,18 +40,23 @@ namespace TravelApp
                 Container = builder.Build();
 
                 navigationService = Container.Resolve<INavigationService>();
+                apiService = Container.Resolve<IApiService>();
+                messageService = Container.Resolve<IMessageService>();
+
                 appViewModel = Container.Resolve<AppViewModel>();
                 startPageViewModel = Container.Resolve<StartPageViewModel>();
                 signUpViewModel = Container.Resolve<SignUpViewModel>();
                 tripBoardViewModel = Container.Resolve<TripBoardViewModel>();
                 addNewTripViewModel= Container.Resolve<AddNewTripViewModel>();
                 addDestinationsViewModel = Container.Resolve<AddDestinationsViewModel>();
+                addNewTripTaskViewModel = Container.Resolve<AddNewTripTaskViewModel>();
 
                 navigationService.Register<StartPageViewModel>(startPageViewModel);
                 navigationService.Register<SignUpViewModel>(signUpViewModel);
                 navigationService.Register<TripBoardViewModel>(tripBoardViewModel);
                 navigationService.Register<AddNewTripViewModel>(addNewTripViewModel);
                 navigationService.Register<AddDestinationsViewModel>(addDestinationsViewModel);
+                navigationService.Register<AddNewTripTaskViewModel>(addNewTripTaskViewModel);
                 
 
                 navigationService.Navigate<StartPageViewModel>();

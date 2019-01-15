@@ -18,4 +18,7 @@
     <DataTemplate DataType="{x:Type vm:AddDestinationsViewModel}">
         <v:AddDestionationsView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:AddNewTripTaskViewModel}">
+        <v:AddNewTripTaskView/>
+    </DataTemplate>
 </ResourceDictionary>

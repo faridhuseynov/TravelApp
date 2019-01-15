@@ -34,6 +34,9 @@ namespace TravelApp.ViewModels
         private ICollection<DestinationList> cities;
         public ICollection<DestinationList> Cities { get => cities; set => Set(ref cities, value); }
 
+        private ICollection<TaskList> tasks;
+        public ICollection<TaskList> Tasks { get => tasks; set => Set(ref tasks, value); }
+
         public AddNewTripViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;
@@ -46,9 +49,14 @@ namespace TravelApp.ViewModels
             Messenger.Default.Register<DestinationListAddedMessage>(this, msg =>
             {
                 Cities = msg.NewCityList;
+            },true);
+
+            Messenger.Default.Register<TaskListAddedMessage>(this, msg =>
+            {
+                Tasks = msg.NewTaskList;
 
                 MessageBox.Show("Added");
-            },true);
+            }, true);
         }
 
 
@@ -84,6 +92,7 @@ namespace TravelApp.ViewModels
                     TripName = "";
                     //new ICollection<City>
                     NewTrip.Destinations = Cities;
+                    NewTrip.TaskList = Tasks;
                     db.Trips.Add(NewTrip);
                     db.SaveChanges();
                     Messenger.Default.Send(new NewTripAddedMessage { Item = NewTrip });
@@ -100,6 +109,17 @@ namespace TravelApp.ViewModels
                     navigation.Navigate<AddDestinationsViewModel>();
                 }
             ));
+        }
+
+        private RelayCommand addTaskCommand;
+        public RelayCommand AddTaskCommand
+        {
+            get => addTaskCommand ?? (addTaskCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate<AddNewTripTaskViewModel>();
+                }
+           ));
         }
     }
 

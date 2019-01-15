@@ -7,6 +7,7 @@
     { "type": "TravelApp.ViewModels.TripBoardViewModel" },
     { "type": "TravelApp.ViewModels.AddNewTripViewModel" },
     { "type": "TravelApp.ViewModels.AddDestinationsViewModel" },
+    { "type": "TravelApp.ViewModels.AddNewTripTaskViewModel" },
 
     {
       "type": "TravelApp.Models.AppDbContext",
@@ -30,13 +31,13 @@
       "instanceScope": "single-instance"
     },
     {
-        "type": "TravelApp.Services.MessageService",
-        "services": [
-          {
-            "type": "TravelApp.Services.IMessageService"
-          }
-        ],
-        "instanceScope": "single-instance"
+      "type": "TravelApp.Services.MessageService",
+      "services": [
+        {
+          "type": "TravelApp.Services.IMessageService"
+        }
+      ],
+      "instanceScope": "single-instance"
     }
   ]
 }
