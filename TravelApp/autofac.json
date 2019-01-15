@@ -28,6 +28,15 @@
         }
       ],
       "instanceScope": "single-instance"
+    },
+    {
+        "type": "TravelApp.Services.MessageService",
+        "services": [
+          {
+            "type": "TravelApp.Services.IMessageService"
+          }
+        ],
+        "instanceScope": "single-instance"
     }
   ]
 }

@@ -21,11 +21,13 @@ namespace TravelApp.ViewModels
 
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
+        private readonly IMessageService messageService;
 
-        public TripBoardViewModel(INavigationService navigation, AppDbContext db)
+        public TripBoardViewModel(INavigationService navigation, AppDbContext db,IMessageService messageService)
         {
             this.navigation = navigation;
             this.db = db;
+            this.messageService = messageService;
 
             Messenger.Default.Register<UserLoggedInOrOutOrRegistered>(this, msg =>
             {
@@ -71,12 +73,15 @@ namespace TravelApp.ViewModels
             get => deleteTripCommand ?? (deleteTripCommand = new RelayCommand<Trip>(
                 param =>
                 {
-                    Trips.Remove(param);
-                    var item = db.Trips.Where(x => x.Id == param.Id).FirstOrDefault();
-                    item.Destinations.Clear();
-                    db.SaveChanges();
-                    db.Trips.Remove(param);
-                    db.SaveChanges();
+                    if (messageService.ShowYesNo($"Are you sure you want to delete trip {param.TripName}?"))
+                    {
+                        Trips.Remove(param);
+                        var item = db.Trips.Where(x => x.Id == param.Id).FirstOrDefault();
+                        item.Destinations.Clear();
+                        db.SaveChanges();
+                        db.Trips.Remove(param);
+                        db.SaveChanges();
+                    }
                 }
             ));
         }

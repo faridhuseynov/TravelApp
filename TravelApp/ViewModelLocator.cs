@@ -23,6 +23,8 @@ namespace TravelApp
         private AddDestinationsViewModel addDestinationsViewModel;
 
         private INavigationService navigationService;
+        private IMessageService messageService;
+        private IApiService apiService;
         public static IContainer Container;
 
         public ViewModelLocator()
