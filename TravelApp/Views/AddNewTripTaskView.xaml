@@ -45,10 +45,10 @@
         <UniformGrid Grid.Row="4" Rows="1" Columns="2">
             <Button FontSize="30"
                 Margin="10"
-                Command="{Binding}">Cancel</Button>
+                Command="{Binding CancelCommand}">Cancel</Button>
             <Button FontSize="30"
                 Margin="10"
-                Command="{Binding}">OK</Button>
+                Command="{Binding TaskOkCommand}">OK</Button>
         </UniformGrid>
     </Grid>
 </UserControl>

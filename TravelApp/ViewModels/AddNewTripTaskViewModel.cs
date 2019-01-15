@@ -18,8 +18,8 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        private string taskName;
-        public string TaskName { get => taskName; set => Set(ref taskName, value); }
+        private string newTaskName;
+        public string NewTaskName { get => newTaskName; set => Set(ref newTaskName, value); }
 
         private ICollection<Task> taskListView=new ObservableCollection<Task>();
         public ICollection<Task> TaskListView { get => taskListView; set => Set(ref taskListView, value); }
@@ -42,16 +42,16 @@ namespace TravelApp.ViewModels
                     try
                     {
                         
-                        var NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == TaskName);
-                        if (NewTask.TaskName == null)
+                        var NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == NewTaskName);
+                        if (NewTask == null)
                         {
-                            db.Tasks.Add(new Task { TaskName = TaskName });
+                            db.Tasks.Add(new Task { TaskName = NewTaskName });
                             db.SaveChanges();
-                            NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == TaskName);
+                            NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == NewTaskName);
                         }                      
                         TaskListView.Add(NewTask);
-                        TaskList.Add(new TaskList {TaskId = db.Tasks.First(x => x.TaskName == TaskName).Id });
-                        TaskName = "";
+                        TaskList.Add(new TaskList {TaskId = db.Tasks.First(x => x.TaskName == NewTaskName).Id });
+                        NewTaskName = "";
                     }
                     catch (Exception ex)
                     {
@@ -61,10 +61,23 @@ namespace TravelApp.ViewModels
             ));
         }
 
-        private RelayCommand okCommand;
-        public RelayCommand OkCommand
+        private RelayCommand<Task> deleteTaskCommand;
+        public RelayCommand<Task> DeleteTaskCommand
         {
-            get => okCommand ?? (okCommand = new RelayCommand(
+            get => deleteTaskCommand ?? (deleteTaskCommand = new RelayCommand<Task>(
+                param =>
+                {
+                    TaskListView.Remove(param);
+                    var deleteTask = TaskList.First(x => x.TaskId == param.Id);
+                    TaskList.Remove(deleteTask);
+                }
+            ));
+        }
+
+        private RelayCommand taskOkCommand;
+        public RelayCommand TaskOkCommand
+        {
+            get => taskOkCommand ?? (taskOkCommand = new RelayCommand(
                 () =>
                 {
                     Messenger.Default.Send(new TaskListAddedMessage { NewTaskList = TaskList });
@@ -79,7 +92,7 @@ namespace TravelApp.ViewModels
             get => cancelCommand ?? (cancelCommand = new RelayCommand(
                 () =>
                 {
-                    TaskName = "";
+                    NewTaskName = "";
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));
