@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TravelApp.Views"
         xmlns:vm="clr-namespace:TravelApp.ViewModels"
         mc:Ignorable="d"
-        Title="AppView" Height="600" Width="500"
+        Title="Travel" Height="600" Width="500"
         d:DataContext="{d:DesignInstance vm:AppViewModel}">
     <Window.Resources>
         <ResourceDictionary Source="../Resources/ViewModelTemplates.xaml"/>

@@ -134,6 +134,7 @@
     <Compile Include="Messages\DestinationListAddedMessage.cs" />
     <Compile Include="Messages\NewTripAddedMessage.cs" />
     <Compile Include="Messages\TaskListAddedMessage.cs" />
+    <Compile Include="Messages\TripSelectedMessage.cs" />
     <Compile Include="Messages\UserLoggedInOrOutOrRegisteredMessage.cs" />
     <Compile Include="Models\DestinationList.cs" />
     <Compile Include="Models\TaskList.cs" />
@@ -148,9 +149,11 @@
     <Compile Include="ViewModels\AddNewTripTaskViewModel.cs" />
     <Compile Include="ViewModels\AddNewTripViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\ReviewTripViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\StartPageViewModel.cs" />
     <Compile Include="ViewModels\TripBoardViewModel.cs" />
+    <Compile Include="ViewModels\TripTasksViewModel.cs" />
     <Compile Include="Views\AddDestionationsView.xaml.cs">
       <DependentUpon>AddDestionationsView.xaml</DependentUpon>
     </Compile>
@@ -163,6 +166,9 @@
     <Compile Include="Views\AppView.xaml.cs">
       <DependentUpon>AppView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReviewTripView.xaml.cs">
+      <DependentUpon>ReviewTripView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SignUpView.xaml.cs">
       <DependentUpon>SignUpView.xaml</DependentUpon>
     </Compile>
@@ -171,6 +177,9 @@
     </Compile>
     <Compile Include="Views\TripBoardView.xaml.cs">
       <DependentUpon>TripBoardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TripTasksView.xaml.cs">
+      <DependentUpon>TripTasksView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +239,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ReviewTripView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SignUpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,6 +252,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TripBoardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TripTasksView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

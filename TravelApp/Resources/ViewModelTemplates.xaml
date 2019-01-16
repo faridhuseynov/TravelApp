@@ -21,4 +21,7 @@
     <DataTemplate DataType="{x:Type vm:AddNewTripTaskViewModel}">
         <v:AddNewTripTaskView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ReviewTripViewModel}">
+        <v:ReviewTripView/>
+    </DataTemplate>
 </ResourceDictionary>

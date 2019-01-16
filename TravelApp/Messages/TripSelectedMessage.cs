@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TravelApp.Models;
 
-namespace TravelApp.Models
+namespace TravelApp.Messages
 {
-    public class Task
+    class TripSelectedMessage
     {
-        public int Id { get; set; }
-        public string TaskName { get; set; }
+        public Trip Trip { get; set; }
     }
 }

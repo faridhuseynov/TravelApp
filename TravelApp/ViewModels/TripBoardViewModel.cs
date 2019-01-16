@@ -66,8 +66,20 @@ namespace TravelApp.ViewModels
                 }
             ));
         }
-        
-             private RelayCommand<Trip> deleteTripCommand;
+
+        private RelayCommand<Trip> reviewTripCommand;
+        public RelayCommand<Trip> ReviewTripCommand
+        {
+            get => reviewTripCommand ?? (reviewTripCommand = new RelayCommand<Trip>(
+                param =>
+                {
+                    Messenger.Default.Send(new TripSelectedMessage(){ Trip = param });
+                    navigation.Navigate<ReviewTripViewModel>();
+                }
+            ));
+        }
+
+        private RelayCommand<Trip> deleteTripCommand;
         public RelayCommand<Trip> DeleteTripCommand
         {
             get => deleteTripCommand ?? (deleteTripCommand = new RelayCommand<Trip>(

@@ -13,7 +13,7 @@
             <DockPanel>
                 <Button 
                     DockPanel.Dock="Right" 
-                    Command="{Binding DataContext.OpenTripInfoCommand, ElementName=TripBoardWindow}"
+                    Command="{Binding DataContext.ReviewTripCommand, ElementName=TripBoardWindow}"
                     CommandParameter="{Binding}">👁</Button>
                 <Button 
                     DockPanel.Dock="Right" 

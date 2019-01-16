@@ -22,6 +22,7 @@ namespace TravelApp
         private AddNewTripViewModel addNewTripViewModel;
         private AddDestinationsViewModel addDestinationsViewModel;
         private AddNewTripTaskViewModel addNewTripTaskViewModel;
+        private ReviewTripViewModel reviewTripViewModel;
 
         private INavigationService navigationService;
         private IMessageService messageService;
@@ -50,6 +51,7 @@ namespace TravelApp
                 addNewTripViewModel= Container.Resolve<AddNewTripViewModel>();
                 addDestinationsViewModel = Container.Resolve<AddDestinationsViewModel>();
                 addNewTripTaskViewModel = Container.Resolve<AddNewTripTaskViewModel>();
+                reviewTripViewModel = Container.Resolve<ReviewTripViewModel>();
 
                 navigationService.Register<StartPageViewModel>(startPageViewModel);
                 navigationService.Register<SignUpViewModel>(signUpViewModel);
@@ -57,7 +59,7 @@ namespace TravelApp
                 navigationService.Register<AddNewTripViewModel>(addNewTripViewModel);
                 navigationService.Register<AddDestinationsViewModel>(addDestinationsViewModel);
                 navigationService.Register<AddNewTripTaskViewModel>(addNewTripTaskViewModel);
-                
+                navigationService.Register<ReviewTripViewModel>(reviewTripViewModel);
 
                 navigationService.Navigate<StartPageViewModel>();
             }
