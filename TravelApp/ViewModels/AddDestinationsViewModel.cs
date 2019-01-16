@@ -41,6 +41,12 @@ namespace TravelApp.ViewModels
             this.navigation = navigation;
             this.db = db;
             this.apiService = apiService;
+
+            Messenger.Default.Register<NewTripAddedMessage>(this, msg =>
+            {
+                Destinations.Clear();
+                CityView.Clear();
+            });
         }
         
         private RelayCommand addCityCommand;
@@ -87,7 +93,7 @@ namespace TravelApp.ViewModels
             get => okCommand ?? (okCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new DestinationListAddedMessage { NewCityList = Destinations });
+                    Messenger.Default.Send(new DestinationListAddedMessage { NewCityList = Destinations });                   
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));
@@ -100,6 +106,8 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     CityName = "";
+                    Destinations.Clear();
+                    CityView.Clear();
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));

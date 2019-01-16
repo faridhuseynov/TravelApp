@@ -31,6 +31,11 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
             this.db = db;
+            Messenger.Default.Register<NewTripAddedMessage>(this, msg =>
+            {
+                TaskList.Clear();
+                TaskListView.Clear();
+            });
         }
 
         private RelayCommand addTaskCommand;
@@ -93,6 +98,8 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     NewTaskName = "";
+                    TaskList.Clear();
+                    TaskListView.Clear();
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));
