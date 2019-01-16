@@ -19,7 +19,7 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        private string photoPath = @"C:\Users\Farid\Desktop\Structure.jpg";
+        private string photoPath;
         public string PhotoPath { get => photoPath; set => Set(ref photoPath, value); }
 
         private string checkUsername;
@@ -56,6 +56,7 @@ namespace TravelApp.ViewModels
                         {
                             db.LoggedInUser = check.Id;
                             db.SaveChanges();
+                            PhotoPath = db.Users.FirstOrDefault(x => x.Id == db.LoggedInUser).PhotoLink;
                             Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = db.LoggedInUser });
                             navigation.Navigate<TripBoardViewModel>();
                         }
