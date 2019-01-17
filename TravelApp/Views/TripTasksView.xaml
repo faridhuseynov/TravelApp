@@ -4,9 +4,64 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TravelApp.Views"
+             xmlns:vm="clr-namespace:TravelApp.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Name="ReviewTaskWindow"
+             d:DataContext="{d:DesignInstance vm:TripTasksViewModel}">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="chkBoxTemplate" TargetType="CheckBox">
+            <Border Width="50"
+                    BorderThickness="2"
+                    BorderBrush="Black"/>
+        </ControlTemplate>
+        <DataTemplate x:Key="TaskLBoxTemplate">
+            <DockPanel>
+                <DockPanel DockPanel.Dock="Right">
+                    <CheckBox 
+                        DockPanel.Dock="Left"
+                        Template="{StaticResource chkBoxTemplate}"
+                        IsChecked="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
+                        CommandParameter="{Binding}"
+                        Margin="10,0"
+                        ></CheckBox>
+                    <Button 
+                        DockPanel.Dock="Right" Width="50"
+                        Margin="10,0"                        
+                        CommandParameter="{Binding}">❌</Button>
+                </DockPanel>
+                <Label Content="{Binding TaskName}"/>
+            </DockPanel>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
-            <
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" FontSize="30"
+               Content="Task"
+               Margin="10,0"></Label>
+        <TextBox Grid.Row="1" FontSize="30"
+                 Margin="10"
+                 Text="{Binding NewTaskName}"></TextBox>
+        <Button Grid.Row="2" FontSize="30"
+                Margin="10,0"
+                Command="{Binding AddTaskCommand}">Add Task</Button>
+        <ListBox Grid.Row="3" FontSize="30"
+                 HorizontalContentAlignment="Stretch"
+                 Margin="10"
+                 ItemsSource="{Binding SelectedTripTasks}"
+                 ItemTemplate="{StaticResource TaskLBoxTemplate}"></ListBox>
+        <UniformGrid Grid.Row="4" Rows="1" Columns="2">
+            <Button FontSize="30"
+                Margin="10"
+                Command="{Binding CancelCommand}">Cancel</Button>
+            <Button FontSize="30"
+                Margin="10"
+                Command="{Binding TaskOkCommand}">OK</Button>
+        </UniformGrid>
     </Grid>
 </UserControl>

@@ -33,9 +33,20 @@ namespace TravelApp.ViewModels
             get => checkListViewCommand ?? (checkListViewCommand = new RelayCommand(
                 () =>
                 {
-
+                    navigation.Navigate<TripTasksViewModel>();
                 }
                 ));            
+        }
+
+        private RelayCommand citiesListViewCommand;
+        public RelayCommand CitiesListViewCommand
+        {
+            get => citiesListViewCommand ?? (citiesListViewCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate<TripTasksViewModel>();
+                }
+                ));
         }
 
     }

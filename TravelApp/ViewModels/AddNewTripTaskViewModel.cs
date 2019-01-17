@@ -55,7 +55,7 @@ namespace TravelApp.ViewModels
                             NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == NewTaskName);
                         }                      
                         TaskListView.Add(NewTask);
-                        TaskList.Add(new TaskList {TaskId = db.Tasks.First(x => x.TaskName == NewTaskName).Id });
+                        TaskList.Add(new TaskList {TaskId = db.Tasks.First(x => x.TaskName == NewTaskName).Id, TaskName=NewTaskName });
                         NewTaskName = "";
                     }
                     catch (Exception ex)

@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,28 @@ namespace TravelApp.ViewModels
             {
                 SelectedTripTasks = new ObservableCollection<TaskList>(msg.Trip.TaskList);
             });
+        }
+
+        private RelayCommand taskOkCommand;
+        public RelayCommand TaskOkCommand
+        {
+            get => taskOkCommand ?? (taskOkCommand = new RelayCommand(
+            () =>
+            {
+                navigation.Navigate<ReviewTripViewModel>();
+            }
+            ));
+        }
+
+        private RelayCommand taskCancelCommand;
+        public RelayCommand TaskCancelCommand
+        {
+            get => taskCancelCommand ?? (taskCancelCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate<ReviewTripViewModel>();
+                }
+                ));
         }
     }
 }
