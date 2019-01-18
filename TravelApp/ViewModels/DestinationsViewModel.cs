@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
+        private ICollection<DestinationList> cityListView=new ObservableCollection<DestinationList>();
+        public ICollection<DestinationList> CityListView { get => cityListView; set => Set(ref cityListView, value); }
+
         private ICollection<DestinationList> selectedTripDestinations=new ObservableCollection<DestinationList>();
         public ICollection<DestinationList> SelectedTripDestinations { get => selectedTripDestinations; set => Set(ref selectedTripDestinations, value); }
 
@@ -27,8 +31,22 @@ namespace TravelApp.ViewModels
 
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
              {
-                 SelectedTripDestinations = new ObservableCollection<DestinationList>(msg.Trip.Destinations);
-             });
+                 SelectedTripDestinations = db.Trips.FirstOrDefault(x=>x.Id==msg.Trip.Id).Destinations;
+                 CityListView = new ObservableCollection<DestinationList>(SelectedTripDestinations);
+             },true);
+        }
+
+        private RelayCommand<DestinationList> deleteCityCommand;
+        public RelayCommand<DestinationList> DeleteCityCommand
+        {
+            get => deleteCityCommand ?? (deleteCityCommand = new RelayCommand<DestinationList>(
+                param =>
+                {
+                    CityListView.Remove(param);
+                    SelectedTripDestinations.Remove(param);
+                    db.SaveChanges();
+                }
+            ));
         }
     }
 }

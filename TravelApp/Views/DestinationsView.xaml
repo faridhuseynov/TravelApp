@@ -33,7 +33,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <ListBox Margin="10" HorizontalContentAlignment="Center"
-                 ItemsSource="{Binding SelectedTripDestinations}"
+                 ItemsSource="{Binding CityListView}"
                  ItemTemplate="{StaticResource CityLBoxTemplate}"></ListBox>
         <Button Grid.Row="1" Margin="10"
                 FontSize="30">Add City</Button>
