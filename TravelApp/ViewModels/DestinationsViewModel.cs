@@ -17,7 +17,7 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        private ICollection<DestinationList> selectedTripDestinations;
+        private ICollection<DestinationList> selectedTripDestinations=new ObservableCollection<DestinationList>();
         public ICollection<DestinationList> SelectedTripDestinations { get => selectedTripDestinations; set => Set(ref selectedTripDestinations, value); }
 
         public DestinationsViewModel(INavigationService navigation, AppDbContext db )

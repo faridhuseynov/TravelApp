@@ -38,13 +38,13 @@ namespace TravelApp.ViewModels
                 ));            
         }
 
-        private RelayCommand citiesListViewCommand;
-        public RelayCommand CitiesListViewCommand
+        private RelayCommand citiesViewCommand;
+        public RelayCommand CitiesViewCommand
         {
-            get => citiesListViewCommand ?? (citiesListViewCommand = new RelayCommand(
+            get => citiesViewCommand ?? (citiesViewCommand = new RelayCommand(
                 () =>
                 {
-                    navigation.Navigate<TripTasksViewModel>();
+                    navigation.Navigate<DestinationsViewModel>();
                 }
                 ));
         }
