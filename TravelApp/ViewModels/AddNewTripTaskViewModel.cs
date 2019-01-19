@@ -45,9 +45,17 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     try
-                    {                                    
-                        TaskListView.Add(new TaskList { TaskName=NewTaskName});
-                        TaskList.Add(new TaskList { TaskName=NewTaskName });
+                    {
+                        
+                        var NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == NewTaskName);
+                        if (NewTask == null)
+                        {
+                            db.Tasks.Add(new Task { TaskName = NewTaskName });
+                            db.SaveChanges();
+                            NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == NewTaskName);
+                        }                      
+                        TaskListView.Add(NewTask);
+                        TaskList.Add(new TaskList {TaskId = db.Tasks.First(x => x.TaskName == NewTaskName).Id });
                         NewTaskName = "";
                     }
                     catch (Exception ex)
@@ -65,7 +73,7 @@ namespace TravelApp.ViewModels
                 param =>
                 {
                     TaskListView.Remove(param);
-                    var deleteTask = TaskList.First(x => x.Id == param.Id);
+                    var deleteTask = TaskList.First(x => x.TaskId == param.Id);
                     TaskList.Remove(deleteTask);
                 }
             ));
