@@ -32,8 +32,7 @@ namespace TravelApp.ViewModels
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
              {
                  SelectedTripDestinations = db.Trips.FirstOrDefault(x=>x.Id==msg.Trip.Id).Destinations;
-                 if (SelectedTripDestinations!=null)
-                     CityListView = new ObservableCollection<DestinationList>(SelectedTripDestinations);
+                 CityListView = new ObservableCollection<DestinationList>(SelectedTripDestinations);
              },true);
         }
 
