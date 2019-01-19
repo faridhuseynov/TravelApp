@@ -21,8 +21,8 @@ namespace TravelApp.ViewModels
         private string newTaskName;
         public string NewTaskName { get => newTaskName; set => Set(ref newTaskName, value); }
 
-        private ICollection<Task> taskListView=new ObservableCollection<Task>();
-        public ICollection<Task> TaskListView { get => taskListView; set => Set(ref taskListView, value); }
+        private ICollection<TaskList> taskListView=new ObservableCollection<TaskList>();
+        public ICollection<TaskList> TaskListView { get => taskListView; set => Set(ref taskListView, value); }
 
         private ICollection<TaskList> taskList=new ObservableCollection<TaskList>();
         public ICollection<TaskList> TaskList { get => taskList; set => Set(ref taskList, value); }
@@ -45,17 +45,9 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     try
-                    {
-                        
-                        var NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == NewTaskName);
-                        if (NewTask == null)
-                        {
-                            db.Tasks.Add(new Task { TaskName = NewTaskName });
-                            db.SaveChanges();
-                            NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == NewTaskName);
-                        }                      
-                        TaskListView.Add(NewTask);
-                        TaskList.Add(new TaskList {TaskId = db.Tasks.First(x => x.TaskName == NewTaskName).Id, TaskName=NewTaskName });
+                    {                                    
+                        TaskListView.Add(new TaskList { TaskName=NewTaskName});
+                        TaskList.Add(new TaskList { TaskName=NewTaskName });
                         NewTaskName = "";
                     }
                     catch (Exception ex)
@@ -66,14 +58,14 @@ namespace TravelApp.ViewModels
             ));
         }
 
-        private RelayCommand<Task> deleteTaskCommand;
-        public RelayCommand<Task> DeleteTaskCommand
+        private RelayCommand<TaskList> deleteTaskCommand;
+        public RelayCommand<TaskList> DeleteTaskCommand
         {
-            get => deleteTaskCommand ?? (deleteTaskCommand = new RelayCommand<Task>(
+            get => deleteTaskCommand ?? (deleteTaskCommand = new RelayCommand<TaskList>(
                 param =>
                 {
                     TaskListView.Remove(param);
-                    var deleteTask = TaskList.First(x => x.TaskId == param.Id);
+                    var deleteTask = TaskList.First(x => x.Id == param.Id);
                     TaskList.Remove(deleteTask);
                 }
             ));

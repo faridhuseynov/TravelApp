@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TravelApp.Messages;
 using TravelApp.Models;
 using TravelApp.Services;
@@ -15,11 +14,11 @@ namespace TravelApp.ViewModels
 {
     class TripTasksViewModel:ViewModelBase
     {
-        private ICollection<TaskList> selectedTripTasks;
-        public ICollection<TaskList> SelectedTripTasks{ get => selectedTripTasks; set => Set(ref selectedTripTasks, value); }
-
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
+
+        private Trip selectedTrip;
+        public Trip SelectedTrip { get => selectedTrip; set => Set(ref selectedTrip, value); }
 
         private ICollection<TaskList> taskListView=new ObservableCollection<TaskList>();
         public ICollection<TaskList> TaskListView { get=> taskListView; set=>Set(ref taskListView, value); }
@@ -30,8 +29,8 @@ namespace TravelApp.ViewModels
             this.db = db;
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
             {
-                SelectedTripTasks = db.Trips.FirstOrDefault(x => x.Id == msg.Trip.Id).TaskList;
-                TaskListView = new ObservableCollection<TaskList>(SelectedTripTasks);
+                SelectedTrip = (db.Trips.FirstOrDefault(x => x.Id == msg.Trip.Id));
+                TaskListView = new ObservableCollection<TaskList>(SelectedTrip.TaskList);
             },true);
         }
 
@@ -41,7 +40,7 @@ namespace TravelApp.ViewModels
             get => taskOkCommand ?? (taskOkCommand = new RelayCommand(
             () =>
             {
-                SelectedTripTasks = TaskListView;
+                SelectedTrip.TaskList =new ObservableCollection<TaskList>(TaskListView);
                 db.SaveChanges();
                 navigation.Navigate<ReviewTripViewModel>();
             }
@@ -58,29 +57,5 @@ namespace TravelApp.ViewModels
                 }
                 ));
         }
-    
-        //private RelayCommand<TaskList> taskCheckedCommand;
-        //public RelayCommand<TaskList> TaskCheckedCommand
-        //{
-        //    get => taskCheckedCommand ?? (taskCheckedCommand = new RelayCommand<TaskList>(
-        //    param =>
-        //    {
-        //        SelectedTripTasks.FirstOrDefault(x => x.Id == param.Id).Status = true;
-        //        db.SaveChanges();
-        //    }
-        //    ));
-        //}
-
-        //private RelayCommand<TaskList> taskUncheckedCommand;
-        //public RelayCommand<TaskList> TaskUncheckedCommand
-        //{
-        //    get => taskUncheckedCommand ?? (taskUncheckedCommand = new RelayCommand<TaskList>(
-        //    param =>
-        //    {
-        //        SelectedTripTasks.FirstOrDefault(x => x.Id == param.Id).Status = false;
-        //        db.SaveChanges();
-        //    }
-        //    ));
-        //}
     }
 }

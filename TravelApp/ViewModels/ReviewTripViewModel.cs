@@ -18,9 +18,6 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        private ICollection<Trip> selectedTrip;
-        public ICollection<Trip> SelectedTrip { get=>selectedTrip; set=>Set(ref selectedTrip,value); }
-
         public ReviewTripViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;

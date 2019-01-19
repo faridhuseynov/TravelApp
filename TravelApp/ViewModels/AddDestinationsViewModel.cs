@@ -79,7 +79,7 @@ namespace TravelApp.ViewModels
                         Destinations.Add(new DestinationList
                         {
                             CityId = db.Cities.First(x => x.CityName == CityName).Id,
-                            CityName = CityName,
+                            CityName = db.Cities.First(x => x.CityName == CityName).CityName,
                             Currency = db.Cities.First(x => x.CityName == CityName).Currency,
                             ImagePath = db.Cities.First(x => x.CityName == CityName).ImagePath,
                             Latitude = lat.ToString(),
