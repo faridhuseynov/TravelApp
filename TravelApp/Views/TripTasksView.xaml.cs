@@ -24,5 +24,7 @@ namespace TravelApp.Views
         {
             InitializeComponent();
         }
+
+        
     }
 }

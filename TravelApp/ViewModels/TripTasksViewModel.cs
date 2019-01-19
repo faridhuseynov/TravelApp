@@ -41,6 +41,8 @@ namespace TravelApp.ViewModels
             get => taskOkCommand ?? (taskOkCommand = new RelayCommand(
             () =>
             {
+                SelectedTripTasks = TaskListView;
+                db.SaveChanges();
                 navigation.Navigate<ReviewTripViewModel>();
             }
             ));
@@ -56,5 +58,29 @@ namespace TravelApp.ViewModels
                 }
                 ));
         }
+    
+        //private RelayCommand<TaskList> taskCheckedCommand;
+        //public RelayCommand<TaskList> TaskCheckedCommand
+        //{
+        //    get => taskCheckedCommand ?? (taskCheckedCommand = new RelayCommand<TaskList>(
+        //    param =>
+        //    {
+        //        SelectedTripTasks.FirstOrDefault(x => x.Id == param.Id).Status = true;
+        //        db.SaveChanges();
+        //    }
+        //    ));
+        //}
+
+        //private RelayCommand<TaskList> taskUncheckedCommand;
+        //public RelayCommand<TaskList> TaskUncheckedCommand
+        //{
+        //    get => taskUncheckedCommand ?? (taskUncheckedCommand = new RelayCommand<TaskList>(
+        //    param =>
+        //    {
+        //        SelectedTripTasks.FirstOrDefault(x => x.Id == param.Id).Status = false;
+        //        db.SaveChanges();
+        //    }
+        //    ));
+        //}
     }
 }

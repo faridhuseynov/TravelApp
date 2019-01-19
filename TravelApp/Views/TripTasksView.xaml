@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TravelApp.Views"
              xmlns:vm="clr-namespace:TravelApp.ViewModels"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Name="ReviewTaskWindow"
              d:DataContext="{d:DesignInstance vm:TripTasksViewModel}">
@@ -20,19 +21,34 @@
             <Border Width="50"
                     BorderThickness="2"
                     BorderBrush="Black"                    
-                    />            
+                    />
         </ControlTemplate>
         <DataTemplate x:Key="TaskLBoxTemplate">
             <DockPanel>
                 <DockPanel DockPanel.Dock="Right">
-                    <CheckBox 
+
+                    <!--<CheckBox 
                         DockPanel.Dock="Left"
                         IsChecked="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
                         Margin="10,0"
-                        Checked="{Binding }"
-                        Unchecked="{Binding}"
-                        >
-                    </CheckBox>
+                        Width="50"
+                        BorderBrush="LightGreen"
+                        BorderThickness="20">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction
+                                    Command="{Binding TaskCheckedCommand}"
+                                    CommandParameter="{Binding}">                                    
+                                </i:InvokeCommandAction>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="Unchecked">
+                                <i:InvokeCommandAction
+                                    Command="{Binding TaskUncheckedCommand}"
+                                    CommandParameter="{Binding}">
+                                </i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>-->
                     <Button 
                         DockPanel.Dock="Right" Width="50"
                         Margin="10,0"                        
@@ -43,6 +59,7 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="70"></RowDefinition>
@@ -59,11 +76,21 @@
         <Button Grid.Row="2" FontSize="30"
                 Margin="10,0"
                 Command="{Binding AddTaskCommand}">Add Task</Button>
-        <ListBox Grid.Row="3" FontSize="30"
+        <DataGrid Grid.Row="3" FontSize="30" Margin="10" AutoGenerateColumns="False" HorizontalAlignment="Stretch"
+                  Grid.Column="2"
+                  RowDetailsVisibilityMode="VisibleWhenSelected"
+                  ItemsSource="{Binding TaskListView}" 
+                  EnableRowVirtualization="True">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn  Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Header="Status" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="ItemColumn" Binding="{Binding TaskName, UpdateSourceTrigger=PropertyChanged}" Header="Tasks" Width="1*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--<ListBox Grid.Row="3" FontSize="30"
                  HorizontalContentAlignment="Stretch"
                  Margin="10"
                  ItemsSource="{Binding TaskListView}"
-                 ItemTemplate="{StaticResource TaskLBoxTemplate}"></ListBox>
+                 ItemTemplate="{StaticResource TaskLBoxTemplate}"></ListBox>-->
         <UniformGrid Grid.Row="4" Rows="1" Columns="2">
             <Button FontSize="30"
                 Margin="10"
