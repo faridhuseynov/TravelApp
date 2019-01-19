@@ -13,18 +13,15 @@ using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
-    class ReviewTripViewModel:ViewModelBase
+    class ReviewTripViewModel : ViewModelBase
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        private ICollection<Trip> selectedTrip;
-        public ICollection<Trip> SelectedTrip { get=>selectedTrip; set=>Set(ref selectedTrip,value); }
-
         public ReviewTripViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;
-            this.db = db;           
+            this.db = db;
         }
 
         private RelayCommand checkListViewCommand;
@@ -33,10 +30,20 @@ namespace TravelApp.ViewModels
             get => checkListViewCommand ?? (checkListViewCommand = new RelayCommand(
                 () =>
                 {
-
+                    navigation.Navigate<TripTasksViewModel>();
                 }
-                ));            
+                ));
         }
 
+        private RelayCommand citiesViewCommand;
+        public RelayCommand CitiesViewCommand
+        {
+            get => citiesViewCommand ?? (citiesViewCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate<DestinationsViewModel>();
+                }
+                ));
+        }
     }
 }

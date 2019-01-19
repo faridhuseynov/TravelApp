@@ -9,6 +9,8 @@
     { "type": "TravelApp.ViewModels.AddDestinationsViewModel" },
     { "type": "TravelApp.ViewModels.AddNewTripTaskViewModel" },
     { "type": "TravelApp.ViewModels.ReviewTripViewModel" },
+    { "type": "TravelApp.ViewModels.TripTasksViewModel" },
+    { "type": "TravelApp.ViewModels.DestinationsViewModel" },
 
     {
       "type": "TravelApp.Models.AppDbContext",

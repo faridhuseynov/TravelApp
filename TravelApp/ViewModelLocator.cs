@@ -23,6 +23,8 @@ namespace TravelApp
         private AddDestinationsViewModel addDestinationsViewModel;
         private AddNewTripTaskViewModel addNewTripTaskViewModel;
         private ReviewTripViewModel reviewTripViewModel;
+        private TripTasksViewModel tripTasksViewModel;
+        private DestinationsViewModel destinationsViewModel;
 
         private INavigationService navigationService;
         private IMessageService messageService;
@@ -48,10 +50,12 @@ namespace TravelApp
                 startPageViewModel = Container.Resolve<StartPageViewModel>();
                 signUpViewModel = Container.Resolve<SignUpViewModel>();
                 tripBoardViewModel = Container.Resolve<TripBoardViewModel>();
-                addNewTripViewModel= Container.Resolve<AddNewTripViewModel>();
+                addNewTripViewModel = Container.Resolve<AddNewTripViewModel>();
                 addDestinationsViewModel = Container.Resolve<AddDestinationsViewModel>();
                 addNewTripTaskViewModel = Container.Resolve<AddNewTripTaskViewModel>();
                 reviewTripViewModel = Container.Resolve<ReviewTripViewModel>();
+                tripTasksViewModel = Container.Resolve<TripTasksViewModel>();
+                destinationsViewModel = Container.Resolve<DestinationsViewModel>();
 
                 navigationService.Register<StartPageViewModel>(startPageViewModel);
                 navigationService.Register<SignUpViewModel>(signUpViewModel);
@@ -60,6 +64,8 @@ namespace TravelApp
                 navigationService.Register<AddDestinationsViewModel>(addDestinationsViewModel);
                 navigationService.Register<AddNewTripTaskViewModel>(addNewTripTaskViewModel);
                 navigationService.Register<ReviewTripViewModel>(reviewTripViewModel);
+                navigationService.Register<TripTasksViewModel>(tripTasksViewModel);
+                navigationService.Register<DestinationsViewModel>(destinationsViewModel);
 
                 navigationService.Navigate<StartPageViewModel>();
             }

@@ -9,8 +9,11 @@ namespace TravelApp.Models
     public class TaskList
     {
         public int Id { get; set; }
-        public int TaskId { get; set; }
-        public Task TripTask { get; set; }
+        public string TaskName { get; set; }
+        //public int TaskId { get; set; }
+        //public Task TripTask { get; set; }
         public bool Status { get; set; } = false;
+        public Trip Trip { get; set; }
+
     }
 }
