@@ -13,7 +13,7 @@ using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
-    class ReviewTripViewModel : ViewModelBase
+    class ReviewTripViewModel:ViewModelBase
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
@@ -21,7 +21,7 @@ namespace TravelApp.ViewModels
         public ReviewTripViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;
-            this.db = db;
+            this.db = db;           
         }
 
         private RelayCommand checkListViewCommand;
@@ -32,7 +32,7 @@ namespace TravelApp.ViewModels
                 {
                     navigation.Navigate<TripTasksViewModel>();
                 }
-                ));
+                ));            
         }
 
         private RelayCommand citiesViewCommand;
@@ -45,5 +45,6 @@ namespace TravelApp.ViewModels
                 }
                 ));
         }
+
     }
 }

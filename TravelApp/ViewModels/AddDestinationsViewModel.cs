@@ -76,7 +76,15 @@ namespace TravelApp.ViewModels
                             LatLon.Location.Latitude = lat;
                             LatLon.Location.Longitude = lon;
                             CityView.Add(NewCity);
-                            Destinations.Add(new DestinationList{ CityId= db.Cities.First(x => x.CityName == CityName).Id});
+                        Destinations.Add(new DestinationList
+                        {
+                            CityId = db.Cities.First(x => x.CityName == CityName).Id,
+                            CityName = db.Cities.First(x => x.CityName == CityName).CityName,
+                            Currency = db.Cities.First(x => x.CityName == CityName).Currency,
+                            ImagePath = db.Cities.First(x => x.CityName == CityName).ImagePath,
+                            Latitude = lat.ToString(),
+                            Longitude = lon.ToString()
+                        });
                             CityName = "";                                             
                     }
                     catch (Exception ex)

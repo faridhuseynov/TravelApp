@@ -12,7 +12,7 @@ using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
-    class TripTasksViewModel : ViewModelBase
+    class TripTasksViewModel:ViewModelBase
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
@@ -20,8 +20,8 @@ namespace TravelApp.ViewModels
         private Trip selectedTrip;
         public Trip SelectedTrip { get => selectedTrip; set => Set(ref selectedTrip, value); }
 
-        private ICollection<TaskList> taskListView = new ObservableCollection<TaskList>();
-        public ICollection<TaskList> TaskListView { get => taskListView; set => Set(ref taskListView, value); }
+        private ICollection<TaskList> taskListView=new ObservableCollection<TaskList>();
+        public ICollection<TaskList> TaskListView { get=> taskListView; set=>Set(ref taskListView, value); }
 
         public TripTasksViewModel(INavigationService navigation, AppDbContext db)
         {
@@ -31,7 +31,7 @@ namespace TravelApp.ViewModels
             {
                 SelectedTrip = (db.Trips.FirstOrDefault(x => x.Id == msg.Trip.Id));
                 TaskListView = new ObservableCollection<TaskList>(SelectedTrip.TaskList);
-            }, true);
+            },true);
         }
 
         private RelayCommand taskOkCommand;
@@ -40,7 +40,7 @@ namespace TravelApp.ViewModels
             get => taskOkCommand ?? (taskOkCommand = new RelayCommand(
             () =>
             {
-                SelectedTrip.TaskList = new ObservableCollection<TaskList>(TaskListView);
+                SelectedTrip.TaskList =new ObservableCollection<TaskList>(TaskListView);
                 db.SaveChanges();
                 navigation.Navigate<ReviewTripViewModel>();
             }

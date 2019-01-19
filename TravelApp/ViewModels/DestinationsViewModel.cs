@@ -13,27 +13,27 @@ using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
-    class DestinationsViewModel : ViewModelBase
+    class DestinationsViewModel:ViewModelBase
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        private ICollection<DestinationList> cityListView = new ObservableCollection<DestinationList>();
+        private ICollection<DestinationList> cityListView=new ObservableCollection<DestinationList>();
         public ICollection<DestinationList> CityListView { get => cityListView; set => Set(ref cityListView, value); }
 
-        private ICollection<DestinationList> selectedTripDestinations = new ObservableCollection<DestinationList>();
+        private ICollection<DestinationList> selectedTripDestinations=new ObservableCollection<DestinationList>();
         public ICollection<DestinationList> SelectedTripDestinations { get => selectedTripDestinations; set => Set(ref selectedTripDestinations, value); }
 
-        public DestinationsViewModel(INavigationService navigation, AppDbContext db)
+        public DestinationsViewModel(INavigationService navigation, AppDbContext db )
         {
             this.navigation = navigation;
             this.db = db;
 
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
-            {
-                SelectedTripDestinations = db.Trips.FirstOrDefault(x => x.Id == msg.Trip.Id).Destinations;
-                CityListView = new ObservableCollection<DestinationList>(SelectedTripDestinations);
-            }, true);
+             {
+                 SelectedTripDestinations = db.Trips.FirstOrDefault(x=>x.Id==msg.Trip.Id).Destinations;
+                 CityListView = new ObservableCollection<DestinationList>(SelectedTripDestinations);
+             },true);
         }
 
         private RelayCommand<DestinationList> deleteCityCommand;

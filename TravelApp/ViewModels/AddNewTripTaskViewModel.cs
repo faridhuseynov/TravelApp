@@ -45,9 +45,9 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     try
-                    {                  
-                        TaskListView.Add(new TaskList{TaskName=NewTaskName});
-                        TaskList.Add(new TaskList { TaskName = NewTaskName });
+                    {                                    
+                        TaskListView.Add(new TaskList { TaskName=NewTaskName});
+                        TaskList.Add(new TaskList { TaskName=NewTaskName });
                         NewTaskName = "";
                     }
                     catch (Exception ex)
@@ -65,8 +65,8 @@ namespace TravelApp.ViewModels
                 param =>
                 {
                     TaskListView.Remove(param);
-                    //var deleteTask = TaskList.First(x => x.TaskId == param.Id);
-                    TaskList.Remove(param);
+                    var deleteTask = TaskList.First(x => x.Id == param.Id);
+                    TaskList.Remove(deleteTask);
                 }
             ));
         }
