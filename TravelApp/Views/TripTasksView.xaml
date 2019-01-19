@@ -10,20 +10,29 @@
              d:DataContext="{d:DesignInstance vm:TripTasksViewModel}">
     <UserControl.Resources>
         <ControlTemplate x:Key="chkBoxTemplate" TargetType="CheckBox">
+            <ControlTemplate.Triggers>
+                <Trigger Property="HasContent" Value="true">
+                    <Setter Property="FocusVisualStyle" Value="{StaticResource CheckRadioFocusVisual}"/>
+                    <Setter Property="Padding" Value="4,0,0,0"/>
+                </Trigger>
+
+            </ControlTemplate.Triggers>
             <Border Width="50"
                     BorderThickness="2"
-                    BorderBrush="Black"/>
+                    BorderBrush="Black"                    
+                    />            
         </ControlTemplate>
         <DataTemplate x:Key="TaskLBoxTemplate">
             <DockPanel>
                 <DockPanel DockPanel.Dock="Right">
                     <CheckBox 
                         DockPanel.Dock="Left"
-                        Template="{StaticResource chkBoxTemplate}"
                         IsChecked="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
-                        CommandParameter="{Binding}"
                         Margin="10,0"
-                        ></CheckBox>
+                        Checked="{Binding }"
+                        Unchecked="{Binding}"
+                        >
+                    </CheckBox>
                     <Button 
                         DockPanel.Dock="Right" Width="50"
                         Margin="10,0"                        
@@ -53,7 +62,7 @@
         <ListBox Grid.Row="3" FontSize="30"
                  HorizontalContentAlignment="Stretch"
                  Margin="10"
-                 ItemsSource="{Binding SelectedTripTasks}"
+                 ItemsSource="{Binding TaskListView}"
                  ItemTemplate="{StaticResource TaskLBoxTemplate}"></ListBox>
         <UniformGrid Grid.Row="4" Rows="1" Columns="2">
             <Button FontSize="30"

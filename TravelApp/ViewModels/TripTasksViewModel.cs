@@ -21,14 +21,18 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
+        private ICollection<TaskList> taskListView=new ObservableCollection<TaskList>();
+        public ICollection<TaskList> TaskListView { get=> taskListView; set=>Set(ref taskListView, value); }
+
         public TripTasksViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;
             this.db = db;
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
             {
-                SelectedTripTasks = new ObservableCollection<TaskList>(msg.Trip.TaskList);
-            });
+                SelectedTripTasks = db.Trips.FirstOrDefault(x => x.Id == msg.Trip.Id).TaskList;
+                TaskListView = new ObservableCollection<TaskList>(SelectedTripTasks);
+            },true);
         }
 
         private RelayCommand taskOkCommand;
