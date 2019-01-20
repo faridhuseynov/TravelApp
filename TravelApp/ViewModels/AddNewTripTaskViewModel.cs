@@ -24,16 +24,12 @@ namespace TravelApp.ViewModels
         private ICollection<TaskList> taskListView=new ObservableCollection<TaskList>();
         public ICollection<TaskList> TaskListView { get => taskListView; set => Set(ref taskListView, value); }
 
-        private ICollection<TaskList> taskList=new ObservableCollection<TaskList>();
-        public ICollection<TaskList> TaskList { get => taskList; set => Set(ref taskList, value); }
-
         public AddNewTripTaskViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;
             this.db = db;
             Messenger.Default.Register<NewTripAddedMessage>(this, msg =>
             {
-                TaskList.Clear();
                 TaskListView.Clear();
             });
         }
@@ -46,16 +42,8 @@ namespace TravelApp.ViewModels
                 {
                     try
                     {
-                        
-                        var NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == NewTaskName);
-                        if (NewTask == null)
-                        {
-                            db.Tasks.Add(new Task { TaskName = NewTaskName });
-                            db.SaveChanges();
-                            NewTask= db.Tasks.FirstOrDefault(x => x.TaskName == NewTaskName);
-                        }                      
-                        TaskListView.Add(NewTask);
-                        TaskList.Add(new TaskList {TaskId = db.Tasks.First(x => x.TaskName == NewTaskName).Id });
+                                           
+                        TaskListView.Add(new TaskList { TaskName = NewTaskName });
                         NewTaskName = "";
                     }
                     catch (Exception ex)
@@ -72,9 +60,7 @@ namespace TravelApp.ViewModels
             get => deleteTaskCommand ?? (deleteTaskCommand = new RelayCommand<TaskList>(
                 param =>
                 {
-                    TaskListView.Remove(param);
-                    var deleteTask = TaskList.First(x => x.TaskId == param.Id);
-                    TaskList.Remove(deleteTask);
+                    TaskListView.Remove(param);                    
                 }
             ));
         }
@@ -85,7 +71,7 @@ namespace TravelApp.ViewModels
             get => taskOkCommand ?? (taskOkCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new TaskListAddedMessage { NewTaskList = TaskList });
+                    Messenger.Default.Send(new TaskListAddedMessage { NewTaskList = TaskListView });
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));
@@ -98,7 +84,6 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     NewTaskName = "";
-                    TaskList.Clear();
                     TaskListView.Clear();
                     navigation.Navigate<AddNewTripViewModel>();
                 }

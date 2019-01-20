@@ -46,5 +46,16 @@ namespace TravelApp.ViewModels
                 ));
         }
 
+        private RelayCommand backCommand;
+        public RelayCommand BackCommand
+        {
+            get => backCommand ?? (backCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate<TripBoardViewModel>();
+                }
+                ));
+        }
+        
     }
 }
