@@ -11,6 +11,8 @@
     { "type": "TravelApp.ViewModels.ReviewTripViewModel" },
     { "type": "TravelApp.ViewModels.TripTasksViewModel" },
     { "type": "TravelApp.ViewModels.DestinationsViewModel" },
+    { "type": "TravelApp.ViewModels.RouteMapViewModel" },
+
 
     {
       "type": "TravelApp.Models.AppDbContext",
