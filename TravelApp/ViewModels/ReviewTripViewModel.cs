@@ -18,6 +18,9 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
+        private Trip selectedTrip=new Trip();
+        public Trip SelectedTrip { get => selectedTrip; set => Set(ref selectedTrip, value); }
+
         public ReviewTripViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;
@@ -30,6 +33,7 @@ namespace TravelApp.ViewModels
             get => checkListViewCommand ?? (checkListViewCommand = new RelayCommand(
                 () =>
                 {
+
                     navigation.Navigate<TripTasksViewModel>();
                 }
                 ));            
@@ -46,5 +50,16 @@ namespace TravelApp.ViewModels
                 ));
         }
 
+        private RelayCommand backCommand;
+        public RelayCommand BackCommand
+        {
+            get => backCommand ?? (backCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate<TripBoardViewModel>();
+                }
+                ));
+        }
+        
     }
 }

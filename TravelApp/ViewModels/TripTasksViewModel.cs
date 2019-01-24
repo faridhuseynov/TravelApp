@@ -12,26 +12,35 @@ using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
+
     class TripTasksViewModel:ViewModelBase
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
-
+                
         private Trip selectedTrip;
         public Trip SelectedTrip { get => selectedTrip; set => Set(ref selectedTrip, value); }
 
-        private ICollection<TaskList> taskListView=new ObservableCollection<TaskList>();
-        public ICollection<TaskList> TaskListView { get=> taskListView; set=>Set(ref taskListView, value); }
+        private ICollection<Task> taskListView=new ObservableCollection<Task>();
+        public ICollection<Task> TaskListView { get=> taskListView; set=>Set(ref taskListView, value); }
 
         public TripTasksViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;
             this.db = db;
+            //foreach (var item in SelectedTrip.TaskList)
+            //{
+            //    TaskListView.Add(new Tasks { Name = item.TaskName, Stat = item.Status });
+            //}
+            //TaskListView = new ObservableCollection<TaskList>(SelectedTrip.TaskList);
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
             {
-                SelectedTrip = (db.Trips.FirstOrDefault(x => x.Id == msg.Trip.Id));
-                TaskListView = new ObservableCollection<TaskList>(SelectedTrip.TaskList);
-            },true);
+                SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.Trip.Id);
+                foreach (var item in SelectedTrip.TaskList)
+                {
+                    TaskListView.Add(new Task { Taskname = item.TaskName, Status = item.Status });
+                }
+            }, true);
         }
 
         private RelayCommand taskOkCommand;
@@ -40,8 +49,15 @@ namespace TravelApp.ViewModels
             get => taskOkCommand ?? (taskOkCommand = new RelayCommand(
             () =>
             {
-                SelectedTrip.TaskList =new ObservableCollection<TaskList>(TaskListView);
+
+                //SelectedTrip.TaskList.Clear();
+                //foreach (var item in TaskListView)
+                //{
+                //    SelectedTrip.TaskList.Add(new TaskList { TaskName = item.Taskname, Status = item.Status });
+                //}
+
                 db.SaveChanges();
+                //TaskListView.Clear();
                 navigation.Navigate<ReviewTripViewModel>();
             }
             ));

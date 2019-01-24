@@ -54,7 +54,6 @@ namespace TravelApp.ViewModels
             Messenger.Default.Register<TaskListAddedMessage>(this, msg =>
             {
                 Tasks = msg.NewTaskList;
-
                 MessageBox.Show("Added");
             }, true);
         }
