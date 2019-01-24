@@ -48,7 +48,8 @@
                 FontSize="30"
                 Background="LightGreen"
                 Foreground="Indigo"
-                Margin="10">ROUTE MAP
+                Margin="10"
+                Command="{Binding RouteMapReviewCommand}">ROUTE MAP
         </Button>
         <Button Grid.Row="5"
                 FontSize="30"

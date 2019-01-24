@@ -30,4 +30,7 @@
     <DataTemplate DataType="{x:Type vm:DestinationsViewModel}">
         <v:DestinationsView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:RouteMapViewModel}">
+        <v:RouteMapView/>
+    </DataTemplate>
 </ResourceDictionary>
