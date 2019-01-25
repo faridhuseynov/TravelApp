@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +19,7 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        private ICollection<Location> locations;
-        public ICollection<Location> Locations { get => locations; set => Set(ref locations, value); }
+        public ICollection<Location> Locations = new ObservableCollection<Location>();
 
 
         public RouteMapViewModel(INavigationService navigation,AppDbContext db)

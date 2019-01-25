@@ -24,7 +24,12 @@ namespace TravelApp.ViewModels
         public ReviewTripViewModel(INavigationService navigation, AppDbContext db)
         {
             this.navigation = navigation;
-            this.db = db;           
+            this.db = db;
+
+            Messenger.Default.Register<TripSelectedMessage>(this, msg =>
+            {
+                SelectedTrip = db.Trips.FirstOrDefault(x=>x.Id==msg.Trip.Id);
+            });
         }
 
         private RelayCommand checkListViewCommand;
@@ -33,7 +38,6 @@ namespace TravelApp.ViewModels
             get => checkListViewCommand ?? (checkListViewCommand = new RelayCommand(
                 () =>
                 {
-
                     navigation.Navigate<TripTasksViewModel>();
                 }
                 ));            
@@ -57,6 +61,17 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     navigation.Navigate<TripBoardViewModel>();
+                }
+                ));
+        }
+        private RelayCommand routeMapReviewCommand;
+        public RelayCommand RouteMapReviewCommand
+        {
+            get => routeMapReviewCommand ?? (routeMapReviewCommand = new RelayCommand(
+                () =>
+                {
+                    Messenger.Default.Send(new MapReviewMessage() { Destinations = SelectedTrip.Destinations });
+                    navigation.Navigate<RouteMapViewModel>();
                 }
                 ));
         }
