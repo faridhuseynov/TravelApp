@@ -21,7 +21,6 @@ namespace TravelApp.ViewModels
 
         public ICollection<Location> Locations = new ObservableCollection<Location>();
 
-
         public RouteMapViewModel(INavigationService navigation,AppDbContext db)
         {
             this.navigation = navigation;
