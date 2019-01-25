@@ -132,6 +132,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Messages\DestinationListAddedMessage.cs" />
+    <Compile Include="Messages\MapReviewMessage.cs" />
     <Compile Include="Messages\NewTripAddedMessage.cs" />
     <Compile Include="Messages\TaskListAddedMessage.cs" />
     <Compile Include="Messages\TripSelectedMessage.cs" />
