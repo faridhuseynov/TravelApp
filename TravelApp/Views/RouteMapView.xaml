@@ -14,12 +14,16 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
-        <m:Map Margin="10" ZoomLevel="2" Mode="AerialWithLabels"
+        <m:Map Margin="10" ZoomLevel="2"
+               Mode="AerialWithLabels"
+               CredentialsProvider="Apvz3tb29nyul3gC1yacpKfH_QNpJ9pcbCOOLSQNIWL5BDPHPofetaoBQG2KK9_h"
                >
+
             <m:MapItemsControl ItemsSource="{Binding Locations}">
                 <m:MapItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <m:Pushpin Location="{Binding Location}"/>
+                        <m:Pushpin Location="{Binding Coordinates}"/>
+                        <!--<m:RoadMode ></m:RoadMode>-->
                     </DataTemplate>
                 </m:MapItemsControl.ItemTemplate>
             </m:MapItemsControl>

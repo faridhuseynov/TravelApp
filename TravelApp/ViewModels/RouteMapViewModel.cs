@@ -14,12 +14,17 @@ using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
+    class MapLocation
+    {
+        public Location Coordinates { get; set; }
+    }
+
     class RouteMapViewModel:ViewModelBase
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        public ICollection<Location> Locations = new ObservableCollection<Location>();
+        public ObservableCollection<MapLocation> Locations { get; set; } = new ObservableCollection<MapLocation>();
 
         public RouteMapViewModel(INavigationService navigation,AppDbContext db)
         {
@@ -30,13 +35,17 @@ namespace TravelApp.ViewModels
             {
                 foreach (var item in msg.Destinations)
                 {
-                    Locations.Add(new Location
+                    Locations.Add(new MapLocation
                     {
+                       Coordinates = new Location
+                       {
                         Latitude = double.Parse(item.Latitude),
                         Longitude = double.Parse(item.Longitude)
-                    });
+                       }
+                    }
+                    );
                 }
-            });
+            },true);
         }
 
         private RelayCommand backCommand;

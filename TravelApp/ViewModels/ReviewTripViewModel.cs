@@ -28,8 +28,9 @@ namespace TravelApp.ViewModels
 
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
             {
-                SelectedTrip = db.Trips.First(x=>x.Id==msg.Trip.Id);
-            });
+                SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.Trip.Id);
+
+            },true);
         }
 
         private RelayCommand checkListViewCommand;
@@ -40,7 +41,7 @@ namespace TravelApp.ViewModels
                 {
                     navigation.Navigate<TripTasksViewModel>();
                 }
-                ));            
+                ,true));            
         }
 
         private RelayCommand citiesViewCommand;
