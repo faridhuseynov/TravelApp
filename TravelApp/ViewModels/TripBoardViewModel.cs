@@ -16,7 +16,7 @@ namespace TravelApp.ViewModels
 {
     class TripBoardViewModel : ViewModelBase
     {
-        private ObservableCollection<Trip> trips;
+        private ObservableCollection<Trip> trips= new ObservableCollection<Trip>();
         public ObservableCollection<Trip> Trips { get => trips; set => Set(ref trips, value); }
 
         private readonly INavigationService navigation;
@@ -38,7 +38,8 @@ namespace TravelApp.ViewModels
 
             Messenger.Default.Register<NewTripAddedMessage>(this, msg =>
             {
-                Trips.Add(msg.Item);
+                var newtrip =db.Trips.FirstOrDefault(x => x.Id == msg.Item.Id);
+                Trips.Add(newtrip);
             },true);
         }
 
@@ -73,7 +74,7 @@ namespace TravelApp.ViewModels
             get => reviewTripCommand ?? (reviewTripCommand = new RelayCommand<Trip>(
                 param =>
                 {
-                    Messenger.Default.Send(new TripSelectedMessage(){ Trip = param });
+                    Messenger.Default.Send(new TripSelectedMessage(){ TripId = param.Id });
                     navigation.Navigate<ReviewTripViewModel>();
                 }
             ));

@@ -101,7 +101,10 @@ namespace TravelApp.ViewModels
             get => okCommand ?? (okCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new DestinationListAddedMessage { NewCityList = Destinations });                   
+                    Messenger.Default.Send(new DestinationListAddedMessage
+                    {
+                        NewCityList = new ObservableCollection<DestinationList>(Destinations)
+                    });                   
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));

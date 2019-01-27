@@ -9,6 +9,6 @@ namespace TravelApp.Messages
 {
     class TripSelectedMessage
     {
-        public Trip Trip { get; set; }
+        public int TripId { get; set; }
     }
 }

@@ -71,7 +71,7 @@ namespace TravelApp.ViewModels
             get => taskOkCommand ?? (taskOkCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new TaskListAddedMessage { NewTaskList = TaskListView });
+                    Messenger.Default.Send(new TaskListAddedMessage { NewTaskList = new ObservableCollection<TaskList>(TaskListView) });
                     navigation.Navigate<AddNewTripViewModel>();
                 }
             ));

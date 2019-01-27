@@ -31,9 +31,10 @@ namespace TravelApp.ViewModels
             this.navigation = navigation;
             this.db = db;
 
-            Messenger.Default.Register<MapReviewMessage>(this,msg=>
+            Messenger.Default.Register<TripSelectedMessage>(this,msg=>
             {
-                foreach (var item in msg.Destinations)
+                var TripDestinations = db.Trips.FirstOrDefault(x => x.Id == msg.TripId).Destinations;
+                foreach (var item in TripDestinations)
                 {
                     Locations.Add(new MapLocation
                     {
@@ -48,12 +49,13 @@ namespace TravelApp.ViewModels
             },true);
         }
 
-        private RelayCommand backCommand;
-        public RelayCommand BackCommand
+        private RelayCommand okCommand;
+        public RelayCommand OkCommand
         {
-            get => backCommand ?? (backCommand = new RelayCommand(
+            get => okCommand ?? (okCommand = new RelayCommand(
                 () =>
-                {                    
+                {
+                    Locations.Clear();
                     navigation.Navigate<ReviewTripViewModel>();
                 }
             ));

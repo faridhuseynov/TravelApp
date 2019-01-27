@@ -32,6 +32,6 @@
                 Margin="10"
                 Background="LightBlue"
                 FontSize="30"
-                Command="{Binding BackCommand}">OK</Button>
+                Command="{Binding OkCommand}">OK</Button>
     </Grid>
 </UserControl>

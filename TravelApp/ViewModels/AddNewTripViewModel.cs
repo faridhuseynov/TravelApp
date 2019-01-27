@@ -94,7 +94,19 @@ namespace TravelApp.ViewModels
                     NewTrip.TaskList = Tasks;
                     db.Trips.Add(NewTrip);
                     db.SaveChanges();
-                    Messenger.Default.Send(new NewTripAddedMessage { Item = NewTrip });
+                    Messenger.Default.Send(new NewTripAddedMessage
+                    {
+                        Item = new Trip()
+                        {
+                            TripName = NewTrip.TripName,
+                            TaskList = NewTrip.TaskList,
+                            Arrival = NewTrip.Arrival,
+                            Departure = NewTrip.Departure,
+                            Destinations = NewTrip.Destinations,
+                            Id = NewTrip.Id,
+                            UserId = NewTrip.UserId
+                        }
+                    });
                     navigation.Navigate<TripBoardViewModel>();
                 }
             ));

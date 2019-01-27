@@ -40,7 +40,7 @@ namespace TravelApp.ViewModels
             Destinations = new ObservableCollection<DestinationList>();
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
              {
-                 SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.Trip.Id);
+                 SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.TripId);
                  foreach (var item in SelectedTrip.Destinations)
                  {
                      CityView.Add(new City { CityName = item.CityName, ImagePath = item.ImagePath });
