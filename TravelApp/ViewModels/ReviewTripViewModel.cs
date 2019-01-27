@@ -49,6 +49,7 @@ namespace TravelApp.ViewModels
             get => citiesViewCommand ?? (citiesViewCommand = new RelayCommand(
                 () =>
                 {
+                    Messenger.Default.Send(new DestinationsReviewMessage { TripId = SelectedTrip.Id });
                     navigation.Navigate<DestinationsViewModel>();
                 }
                 ));
