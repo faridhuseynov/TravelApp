@@ -33,5 +33,8 @@ namespace TravelApp.Models
         public string Email { get; set; }
 
         public IEnumerable<Trip> Trips { get; set; }
+
+        public string SaltValue { get; set; }
+        public string HashValue { get; set; }        
     }
 }
