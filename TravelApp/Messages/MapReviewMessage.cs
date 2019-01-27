@@ -10,6 +10,6 @@ namespace TravelApp.Messages
 {
     class MapReviewMessage
     {
-        public ICollection<DestinationList> Destinations { get; set; } = new ObservableCollection<DestinationList>();
+        public int TripId { get; set; }
     }
 }

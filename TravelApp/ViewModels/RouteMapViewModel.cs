@@ -31,7 +31,7 @@ namespace TravelApp.ViewModels
             this.navigation = navigation;
             this.db = db;
 
-            Messenger.Default.Register<TripSelectedMessage>(this,msg=>
+            Messenger.Default.Register<MapReviewMessage>(this,msg=>
             {
                 var TripDestinations = db.Trips.FirstOrDefault(x => x.Id == msg.TripId).Destinations;
                 foreach (var item in TripDestinations)

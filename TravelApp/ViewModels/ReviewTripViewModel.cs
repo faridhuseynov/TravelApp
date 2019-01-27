@@ -71,7 +71,7 @@ namespace TravelApp.ViewModels
             get => routeMapReviewCommand ?? (routeMapReviewCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new MapReviewMessage() { Destinations = SelectedTrip.Destinations });
+                    Messenger.Default.Send(new MapReviewMessage() { TripId=SelectedTrip.Id });
                     navigation.Navigate<RouteMapViewModel>();
                 }
                 ));
