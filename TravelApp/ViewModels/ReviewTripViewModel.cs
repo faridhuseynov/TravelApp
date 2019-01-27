@@ -40,7 +40,7 @@ namespace TravelApp.ViewModels
                 {
                     navigation.Navigate<TripTasksViewModel>();
                 }
-                ,true));            
+                ));            
         }
 
         private RelayCommand citiesViewCommand;
@@ -74,7 +74,6 @@ namespace TravelApp.ViewModels
                     navigation.Navigate<RouteMapViewModel>();
                 }
                 ));
-        }
-        
+        }        
     }
 }

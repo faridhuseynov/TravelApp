@@ -12,30 +12,7 @@
     <UserControl.Resources>
         <DataTemplate x:Key="TaskLBoxTemplate">
             <DockPanel>
-                <DockPanel DockPanel.Dock="Right">
-
-                    <!--<CheckBox 
-                        DockPanel.Dock="Left"
-                        IsChecked="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
-                        Margin="10,0"
-                        Width="50"
-                        BorderBrush="LightGreen"
-                        BorderThickness="20">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Checked">
-                                <i:InvokeCommandAction
-                                    Command="{Binding TaskCheckedCommand}"
-                                    CommandParameter="{Binding}">                                    
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="Unchecked">
-                                <i:InvokeCommandAction
-                                    Command="{Binding TaskUncheckedCommand}"
-                                    CommandParameter="{Binding}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </CheckBox>-->
+                <DockPanel DockPanel.Dock="Right">                    
                     <Button 
                         DockPanel.Dock="Right" Width="50"
                         Margin="10,0"                        
@@ -52,12 +29,15 @@
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="0" FontSize="30" Margin="10" AutoGenerateColumns="False" HorizontalAlignment="Stretch"
                   Grid.Column="2"
+                  IsReadOnly="False"
                   RowDetailsVisibilityMode="VisibleWhenSelected"
                   ItemsSource="{Binding SelectedTrip.TaskList}" 
                   EnableRowVirtualization="True">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn  Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Header="Status" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="ItemColumn" Binding="{Binding TaskName, UpdateSourceTrigger=PropertyChanged}" Header="Tasks" Width="1*"/>
+                <DataGridTextColumn x:Name="ItemColumn"
+                                    IsReadOnly="False"
+                                    Binding="{Binding TaskName, UpdateSourceTrigger=PropertyChanged}" Header="Tasks" Width="1*"/>
             </DataGrid.Columns>
         </DataGrid>
         <!--<ListBox Grid.Row="3" FontSize="30"

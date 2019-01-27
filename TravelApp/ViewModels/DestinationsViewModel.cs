@@ -29,7 +29,7 @@ namespace TravelApp.ViewModels
         private ICollection<City> cityView = new ObservableCollection<City>();
         public ICollection<City> CityView { get => cityView; set => Set(ref cityView, value); }
 
-        private ICollection<DestinationList> destinations;
+        private ICollection<DestinationList> destinations=new ObservableCollection<DestinationList>();
         public ICollection<DestinationList> Destinations { get => destinations; set => Set(ref destinations, value); }
 
         public DestinationsViewModel(INavigationService navigation, AppDbContext db, IApiService apiService)
@@ -37,25 +37,24 @@ namespace TravelApp.ViewModels
             this.navigation = navigation;
             this.db = db;
             this.apiService = apiService;
-            Destinations = new ObservableCollection<DestinationList>();
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
              {
                  SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.TripId);
                  foreach (var item in SelectedTrip.Destinations)
                  {
                      CityView.Add(new City { CityName = item.CityName, ImagePath = item.ImagePath });
-                     Destinations.Add(item);
+                     Destinations.Add(new DestinationList()
+                     {
+                         CityId=item.CityId,
+                         CityName = item.CityName,
+                         Currency = item.Currency,
+                         ImagePath = item.ImagePath,
+                         Latitude = item.Latitude,
+                         Longitude = item.Longitude
+                     });
                  }
              }, true);
         }
-
-            //    Messenger.Default.Register<NewTripAddedMessage>(this, msg =>
-            //    {
-            //        Destinations.Clear();
-            //        CityView.Clear();
-            //    });
-            //}
-
 
         private RelayCommand addCityCommand;
         public RelayCommand AddCityCommand
@@ -77,9 +76,13 @@ namespace TravelApp.ViewModels
                             db.Cities.Add(NewCity);
                             db.SaveChanges();
                         }
-                      
-                        CityView.Add(NewCity);
-                        Destinations.Add(new DestinationList
+
+                        CityView.Add(new City()
+                        {
+                            CityName = NewCity.CityName, Country = NewCity.Country, Currency = NewCity.Currency,
+                            ImagePath = NewCity.ImagePath, Latitude = NewCity.Latitude, Longitude = NewCity.Longitude
+                        });
+                        Destinations.Add(new DestinationList()
                         {
                             CityId = db.Cities.FirstOrDefault(x => x.CityName == CityName).Id,
                             CityName = db.Cities.FirstOrDefault(x => x.CityName == CityName).CityName,
@@ -105,10 +108,25 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     SelectedTrip.Destinations.Clear();
-                    SelectedTrip.Destinations = Destinations;
+                    SelectedTrip.Destinations = new ObservableCollection<DestinationList>();
+                    foreach (var item in Destinations)
+                    {
+                        var dest = new DestinationList
+                        {
+                            CityId = item.CityId,
+                            CityName = item.CityName,
+                            Currency = item.Currency,
+                            ImagePath = item.ImagePath,
+                            Latitude = item.Latitude,
+                            Longitude = item.Longitude
+                        };
+                        SelectedTrip.Destinations.Add(dest
+                        );                       
+                    }
                     db.SaveChanges();
                     Destinations.Clear();
-                    navigation.Navigate<TripBoardViewModel>();
+                    CityView.Clear();
+                    navigation.Navigate<ReviewTripViewModel>();
                 }
             ));
         }

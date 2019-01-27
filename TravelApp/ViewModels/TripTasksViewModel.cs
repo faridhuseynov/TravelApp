@@ -28,11 +28,6 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
             this.db = db;
-            //foreach (var item in SelectedTrip.TaskList)
-            //{
-            //    TaskListView.Add(new Tasks { Name = item.TaskName, Stat = item.Status });
-            //}
-            //TaskListView = new ObservableCollection<TaskList>(SelectedTrip.TaskList);
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
             {
                 SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.TripId);
@@ -49,15 +44,7 @@ namespace TravelApp.ViewModels
             get => taskOkCommand ?? (taskOkCommand = new RelayCommand(
             () =>
             {
-
-                //SelectedTrip.TaskList.Clear();
-                //foreach (var item in TaskListView)
-                //{
-                //    SelectedTrip.TaskList.Add(new TaskList { TaskName = item.Taskname, Status = item.Status });
-                //}
-
                 db.SaveChanges();
-                //TaskListView.Clear();
                 navigation.Navigate<ReviewTripViewModel>();
             }
             ));
