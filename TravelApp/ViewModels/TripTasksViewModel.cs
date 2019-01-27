@@ -28,7 +28,7 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
             this.db = db;
-            Messenger.Default.Register<TripSelectedMessage>(this, msg =>
+            Messenger.Default.Register<TaskListReviewMessage>(this, msg =>
             {
                 SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.TripId);
                 foreach (var item in SelectedTrip.TaskList)

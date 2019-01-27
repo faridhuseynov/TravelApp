@@ -136,6 +136,7 @@
     <Compile Include="Messages\MapReviewMessage.cs" />
     <Compile Include="Messages\NewTripAddedMessage.cs" />
     <Compile Include="Messages\TaskListAddedMessage.cs" />
+    <Compile Include="Messages\TaskListReviewMessage.cs" />
     <Compile Include="Messages\TripSelectedMessage.cs" />
     <Compile Include="Messages\UserLoggedInOrOutOrRegisteredMessage.cs" />
     <Compile Include="Models\DestinationList.cs" />

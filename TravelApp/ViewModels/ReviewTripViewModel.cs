@@ -38,6 +38,7 @@ namespace TravelApp.ViewModels
             get => checkListViewCommand ?? (checkListViewCommand = new RelayCommand(
                 () =>
                 {
+                    Messenger.Default.Send(new TaskListReviewMessage { TripId = SelectedTrip.Id });
                     navigation.Navigate<TripTasksViewModel>();
                 }
                 ));            
@@ -55,16 +56,6 @@ namespace TravelApp.ViewModels
                 ));
         }
 
-        private RelayCommand backCommand;
-        public RelayCommand BackCommand
-        {
-            get => backCommand ?? (backCommand = new RelayCommand(
-                () =>
-                {
-                    navigation.Navigate<TripBoardViewModel>();
-                }
-                ));
-        }
         private RelayCommand routeMapReviewCommand;
         public RelayCommand RouteMapReviewCommand
         {
@@ -76,5 +67,17 @@ namespace TravelApp.ViewModels
                 }
                 ));
         }        
+
+        private RelayCommand backCommand;
+        public RelayCommand BackCommand
+        {
+            get => backCommand ?? (backCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate<TripBoardViewModel>();
+                }
+                ));
+        }
+
     }
 }
