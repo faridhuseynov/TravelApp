@@ -158,6 +158,7 @@
     <Compile Include="ViewModels\RouteMapViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\StartPageViewModel.cs" />
+    <Compile Include="ViewModels\TicketsViewModel.cs" />
     <Compile Include="ViewModels\TripBoardViewModel.cs" />
     <Compile Include="ViewModels\TripTasksViewModel.cs" />
     <Compile Include="Views\AddDestionationsView.xaml.cs">
@@ -186,6 +187,9 @@
     </Compile>
     <Compile Include="Views\StartPageView.xaml.cs">
       <DependentUpon>StartPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TicketsView.xaml.cs">
+      <DependentUpon>TicketsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TripBoardView.xaml.cs">
       <DependentUpon>TripBoardView.xaml</DependentUpon>
@@ -267,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StartPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TicketsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
