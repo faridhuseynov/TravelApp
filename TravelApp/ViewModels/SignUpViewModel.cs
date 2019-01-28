@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +25,7 @@ namespace TravelApp.ViewModels
 
         void UserDataClear()
         {
-            newUser.Email = newUser.Name = newUser.Password = newUser.PhotoLink = newUser.Surname = newUser.UserName = "";
+            NewUser.Email = NewUser.Name = NewUser.PhotoLink = NewUser.Surname = NewUser.UserName = "";
         }
 
         public SignUpViewModel(INavigationService navigation, AppDbContext db)
@@ -39,13 +40,24 @@ namespace TravelApp.ViewModels
             get => registerCommand ?? (registerCommand = new RelayCommand<PasswordBox>(
                 param =>
                 {
-                    newUser.Password = param.Password;
+                    RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
+                    byte[] salt = new byte[32];
+                    csprng.GetBytes(salt);
+                    // Get the salt value
+                    NewUser.SaltValue = Convert.ToBase64String(salt);
+                    // Salt the password
+                    byte[] saltedPassword = Encoding.UTF8.GetBytes(NewUser.SaltValue + param.Password);
+                    // Hash the salted password using SHA256
+                    SHA256Managed hashstring = new SHA256Managed();
+                    byte[] hash = hashstring.ComputeHash(saltedPassword);
+                    // Save both the salt and the hash in the user's database record.
+                    NewUser.SaltValue = Convert.ToBase64String(salt);
+                    NewUser.HashValue = Convert.ToBase64String(hash);
                     db.Users.Add(NewUser);
                     db.LoggedInUser = NewUser.Id;
                     db.SaveChanges();
-                    //MessageBox.Show($"User {newUser.UserName} successfully registered!");
-                    Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = newUser.Id });
-                    //UserDataClear();
+                    Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = NewUser.Id });
+                    UserDataClear();
                     navigation.Navigate<TripBoardViewModel>();
                 }
             ));
@@ -57,11 +69,10 @@ namespace TravelApp.ViewModels
             get => cancelCommand ?? (cancelCommand = new RelayCommand(
                 () =>
                 {
-                    //UserDataClear();
+                    UserDataClear();
                     navigation.Navigate<StartPageViewModel>();
                 }
             ));
         }
-
     }
 }

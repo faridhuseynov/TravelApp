@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,9 +19,6 @@ namespace TravelApp.ViewModels
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
-
-        private string photoPath;
-        public string PhotoPath { get => photoPath; set => Set(ref photoPath, value); }
 
         private string checkUsername;
         public string CheckUsername { get => checkUsername; set => Set(ref checkUsername, value); }
@@ -46,27 +44,33 @@ namespace TravelApp.ViewModels
         public RelayCommand<PasswordBox> LoginCommand
         {
             get => loginCommand ?? (loginCommand = new RelayCommand<PasswordBox>(
-                param =>
+               param =>
                 {
-                    var check = db.Users.FirstOrDefault(x => x.UserName == checkUsername);
-                    if (check != null)
+                    var UserCheck = db.Users.FirstOrDefault(x => x.UserName == checkUsername);
+                    if (UserCheck == null)
                     {
-                        PhotoPath = check.PhotoLink;
-                        if (check.Password == param.Password)
-                        {
-                            db.LoggedInUser = check.Id;
-                            db.SaveChanges();
-                            PhotoPath = db.Users.FirstOrDefault(x => x.Id == db.LoggedInUser).PhotoLink;
-                            Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = db.LoggedInUser });
-                            navigation.Navigate<TripBoardViewModel>();
-                        }
-                        else
-                            MessageBox.Show("Password is incorrect!");
+                        MessageBox.Show("User with that username not found");
+                        return;
+                    }
+                    // Read the user's salt value from the database
+                    string saltValueFromDB = UserCheck.SaltValue;
+                    // Read the user's hash value from the database
+                    string hashValueFromDB = UserCheck.HashValue;
+                    byte[] saltedPassword = Encoding.UTF8.GetBytes(saltValueFromDB + param.Password);
+                    // Hash the salted password using SHA256
+                    SHA256Managed hashstring = new SHA256Managed();
+                    byte[] hash = hashstring.ComputeHash(saltedPassword);
+                    string hashToCompare = Convert.ToBase64String(hash);
+                    if (hashValueFromDB.Equals(hashToCompare))
+                    {
+                        db.LoggedInUser = UserCheck.Id;
+                        db.SaveChanges();
+                        navigation.Navigate<TripBoardViewModel>();
                     }
                     else
-                        MessageBox.Show("Username is incorrect!");
-                }
-            ));
+                        Console.WriteLine("Login credentials incorrect. User not validated.");
+                }));
         }
     }
 }
+                

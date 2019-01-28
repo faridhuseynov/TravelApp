@@ -17,10 +17,6 @@ namespace TravelApp.Models
 
         [Required]
         [MaxLength(100)]
-        public string Password { get; set; }
-
-        [Required]
-        [MaxLength(100)]
         public string Name { get; set; }
 
         [Required]
