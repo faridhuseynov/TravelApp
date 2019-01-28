@@ -54,10 +54,10 @@ namespace TravelApp.ViewModels
                     NewUser.SaltValue = Convert.ToBase64String(salt);
                     NewUser.HashValue = Convert.ToBase64String(hash);
                     db.Users.Add(NewUser);
-                    db.LoggedInUser = NewUser.Id;
                     db.SaveChanges();
                     Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = NewUser.Id });
                     UserDataClear();
+                    Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = db.Users.Last().Id });
                     navigation.Navigate<TripBoardViewModel>();
                 }
             ));

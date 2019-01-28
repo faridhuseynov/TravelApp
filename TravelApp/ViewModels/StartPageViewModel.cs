@@ -63,8 +63,7 @@ namespace TravelApp.ViewModels
                     string hashToCompare = Convert.ToBase64String(hash);
                     if (hashValueFromDB.Equals(hashToCompare))
                     {
-                        db.LoggedInUser = UserCheck.Id;
-                        db.SaveChanges();
+                        Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = UserCheck.Id });
                         navigation.Navigate<TripBoardViewModel>();
                     }
                     else
