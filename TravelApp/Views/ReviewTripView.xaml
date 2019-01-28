@@ -29,7 +29,8 @@
                 FontSize="30"
                 Background="LightGreen"
                 Foreground="Indigo"
-                Margin="10">TICKETS
+                Margin="10"
+                Command="{Binding TicketsViewCommand}">TICKETS
         </Button>
         <Button Grid.Row="2"
                 FontSize="30"

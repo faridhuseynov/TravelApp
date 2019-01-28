@@ -44,6 +44,18 @@ namespace TravelApp.ViewModels
                 ));            
         }
 
+        private RelayCommand ticketsViewCommand;
+        public RelayCommand TicketsViewCommand
+        {
+            get => ticketsViewCommand ?? (ticketsViewCommand = new RelayCommand(
+                () =>
+                {
+                    Messenger.Default.Send(new DestinationsReviewMessage { TripId = SelectedTrip.Id });
+                    navigation.Navigate<TicketsViewModel>();
+                }
+                ));
+        }
+
         private RelayCommand citiesViewCommand;
         public RelayCommand CitiesViewCommand
         {

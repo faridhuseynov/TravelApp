@@ -57,7 +57,6 @@ namespace TravelApp.ViewModels
                     db.SaveChanges();
                     Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = NewUser.Id });
                     UserDataClear();
-                    Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = db.Users.Last().Id });
                     navigation.Navigate<TripBoardViewModel>();
                 }
             ));

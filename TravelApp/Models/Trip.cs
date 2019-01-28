@@ -28,6 +28,7 @@ namespace TravelApp.Models
 
         public virtual ICollection<TaskList> TaskList { get; set; }
         public virtual ICollection<DestinationList> Destinations { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
 
 
     }
