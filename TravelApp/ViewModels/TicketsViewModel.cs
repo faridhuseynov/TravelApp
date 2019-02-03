@@ -1,4 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +27,27 @@ namespace TravelApp.ViewModels
             this.navigation = navigation;
             this.db = db;
 
+            //Messenger.Default.Register<>  this to be continued. DialogBox successfully created
+        }
 
+        private RelayCommand addTicketCommand;
+        public RelayCommand AddTicketCommand
+        {
+            get => addTicketCommand ?? (addTicketCommand = new RelayCommand(
+                () =>
+                {
+                    OpenFileDialog fileDialog = new OpenFileDialog();
+                    fileDialog.DefaultExt = ".pdf";
+                    fileDialog.Filter = "PDF documents (.pdf)|*.pdf";
+                    fileDialog.InitialDirectory = @"C:\Users\Farid\Desktop";
+                    fileDialog.ShowDialog();
+                    if (fileDialog!=null)
+                    {
+
+                    }
+
+                }
+            ));
         }
     }
 }
