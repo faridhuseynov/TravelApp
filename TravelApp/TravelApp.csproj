@@ -131,6 +131,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Messages\CheckTicketMessage.cs" />
     <Compile Include="Messages\DestinationListAddedMessage.cs" />
     <Compile Include="Messages\DestinationsReviewMessage.cs" />
     <Compile Include="Messages\MapReviewMessage.cs" />

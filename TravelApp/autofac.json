@@ -13,6 +13,7 @@
     { "type": "TravelApp.ViewModels.DestinationsViewModel" },
     { "type": "TravelApp.ViewModels.RouteMapViewModel" },
     { "type": "TravelApp.ViewModels.TicketsViewModel" },
+    { "type": "TravelApp.ViewModels.CheckTicketViewModel" },
 
     {
       "type": "TravelApp.Models.AppDbContext",

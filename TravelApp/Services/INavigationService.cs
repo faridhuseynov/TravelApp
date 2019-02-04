@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TravelApp.Services
 {
-    interface INavigationService
+    public interface INavigationService
     {
         void Navigate<T>();
         void Navigate(Type type);

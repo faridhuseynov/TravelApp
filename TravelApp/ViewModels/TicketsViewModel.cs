@@ -14,7 +14,7 @@ using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
-    class TicketsViewModel:ViewModelBase
+    public class TicketsViewModel:ViewModelBase
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
@@ -81,7 +81,8 @@ namespace TravelApp.ViewModels
             get => checkTicketCommand ?? (checkTicketCommand = new RelayCommand<Ticket>(
                 param =>
                 {
-                    TicketList.Remove(param);
+                    Messenger.Default.Send(new CheckTicketMessage { TicketSource = param.TicketPath });
+                    navigation.Navigate<CheckTicketViewModel>();
                 }
             ));
         }
