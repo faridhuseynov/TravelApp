@@ -140,7 +140,7 @@ namespace TravelApp.ViewModels
                     CityName = "";
                     Destinations.Clear();
                     CityView.Clear();
-                    navigation.Navigate<TripBoardViewModel>();
+                    navigation.Navigate<ReviewTripViewModel>();
                 }
             ));
         }

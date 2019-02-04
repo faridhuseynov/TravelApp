@@ -45,6 +45,7 @@ namespace TravelApp.ViewModels
 
     }
 
+    //taken from StackOverflow
     public static class WebBrowserUtility
     {
         public static readonly DependencyProperty BindableSourceProperty =
