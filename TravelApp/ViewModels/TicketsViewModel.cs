@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TravelApp.Messages;
 using TravelApp.Models;
 using TravelApp.Services;
 
@@ -18,16 +19,30 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        private ICollection<Ticket> ticketList = new ObservableCollection<Ticket>();
+        private ICollection<Ticket> ticketList;
         public ICollection<Ticket> TicketList { get => ticketList; set => Set(ref ticketList, value); }
-        
+
+        private Trip selectedTrip;
+        public Trip SelectedTrip { get => selectedTrip; set => Set(ref selectedTrip, value); }
 
         public TicketsViewModel(INavigationService navigation,AppDbContext db)
         {
             this.navigation = navigation;
             this.db = db;
 
-            //Messenger.Default.Register<>  this to be continued. DialogBox successfully created
+            Messenger.Default.Register<TicketsReviewMessage>(this, msg => 
+            {
+                SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.TripId);
+                TicketList = new ObservableCollection<Ticket>();
+                foreach (var item in SelectedTrip.Tickets)
+                {
+                    TicketList.Add(new Ticket
+                    {
+                        TicketName = item.TicketName,
+                        TicketPath=item.TicketPath                    
+                    });
+                }
+            },true);
         }
 
         private RelayCommand addTicketCommand;
@@ -43,9 +58,30 @@ namespace TravelApp.ViewModels
                     fileDialog.ShowDialog();
                     if (fileDialog!=null)
                     {
+                        TicketList.Add(new Ticket { TicketName = fileDialog.SafeFileName, TicketPath = fileDialog.FileName });
+                    }                    
+                }
+            ));
+        }
 
+        private RelayCommand okTicketCommand;
+        public RelayCommand OkTicketCommand
+        {
+            get => okTicketCommand ?? (okTicketCommand = new RelayCommand(
+                () =>
+                {
+                    SelectedTrip.Tickets.Clear();
+                    SelectedTrip.Tickets = new ObservableCollection<Ticket>();
+                    foreach (var item in TicketList)
+                    {
+                        SelectedTrip.Tickets.Add(new Ticket
+                        {
+                            TicketName=item.TicketName,TicketPath=item.TicketPath
+                        });
                     }
-
+                    db.SaveChanges();
+                    TicketList.Clear();
+                    navigation.Navigate<ReviewTripViewModel>();
                 }
             ));
         }

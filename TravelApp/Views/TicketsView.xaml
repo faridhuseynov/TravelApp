@@ -14,12 +14,12 @@
                 <DockPanel DockPanel.Dock="Top">
                     <Image DockPanel.Dock="Top"
                        Source="C:\Users\Farid\source\repos\TravelApp\TravelApp\Icons\ticket.png"></Image>
-                    <Label DockPanel.Dock="Bottom"
+                    <Label DockPanel.Dock="Bottom" FontSize="20"
                        Content="{Binding TicketName}"></Label>
                 </DockPanel>
-                <Button DockPanel.Dock="Bottom"
+                <Button DockPanel.Dock="Bottom" FontSize="20"
                         Command="{Binding DataContext.DeleteTicket,ElementName=TicketWindow}"
-                        CommandParameter="{Binding}"></Button>
+                        CommandParameter="{Binding}">❌</Button>
             </DockPanel>
         </DataTemplate>
     </UserControl.Resources>
@@ -37,6 +37,7 @@
                  ItemsSource="{Binding TicketList}"
                  ItemTemplate="{StaticResource ticketLbTemplate}"></ListBox>
         <Button Margin="10" Grid.Row="2"
-                FontSize="30">OK</Button>
+                FontSize="30"
+                Command="{Binding OkTicketCommand}">OK</Button>
     </Grid>
 </UserControl>

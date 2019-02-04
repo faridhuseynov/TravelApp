@@ -50,7 +50,7 @@ namespace TravelApp.ViewModels
             get => ticketsViewCommand ?? (ticketsViewCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new DestinationsReviewMessage { TripId = SelectedTrip.Id });
+                    Messenger.Default.Send(new TicketsReviewMessage  { TripId = SelectedTrip.Id });
                     navigation.Navigate<TicketsViewModel>();
                 }
                 ));

@@ -50,7 +50,7 @@ namespace TravelApp.ViewModels
                          Currency = item.Currency,
                          ImagePath = item.ImagePath,
                          Latitude = item.Latitude,
-                         Longitude = item.Longitude
+                         Longitude = item.Longitude                         
                      });
                  }
              }, true);
