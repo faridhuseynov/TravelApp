@@ -27,7 +27,8 @@ namespace TravelApp
         private DestinationsViewModel destinationsViewModel;
         private RouteMapViewModel routeMapViewModel;
         private TicketsViewModel ticketsViewModel;
-
+        private CheckTicketViewModel checkTicketViewModel;
+        
         private INavigationService navigationService;
         private IMessageService messageService;
         private IApiService apiService;
@@ -60,6 +61,7 @@ namespace TravelApp
                 destinationsViewModel = Container.Resolve<DestinationsViewModel>();
                 routeMapViewModel = Container.Resolve<RouteMapViewModel>();
                 ticketsViewModel = Container.Resolve<TicketsViewModel>();
+                checkTicketViewModel = Container.Resolve<CheckTicketViewModel>();
 
                 navigationService.Register<StartPageViewModel>(startPageViewModel);
                 navigationService.Register<SignUpViewModel>(signUpViewModel);
@@ -72,6 +74,7 @@ namespace TravelApp
                 navigationService.Register<DestinationsViewModel>(destinationsViewModel);
                 navigationService.Register<RouteMapViewModel>(routeMapViewModel);
                 navigationService.Register<TicketsViewModel>(ticketsViewModel);
+                navigationService.Register<CheckTicketViewModel>(checkTicketViewModel);
 
                 navigationService.Navigate<StartPageViewModel>();
             }

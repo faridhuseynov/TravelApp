@@ -64,6 +64,28 @@ namespace TravelApp.ViewModels
             ));
         }
 
+        private RelayCommand<Ticket> deleteTicketCommand;
+        public RelayCommand<Ticket> DeleteTicketCommand
+        {
+            get => deleteTicketCommand ?? (deleteTicketCommand = new RelayCommand<Ticket>(
+                param =>
+                {
+                    TicketList.Remove(param);
+                }
+            ));
+        }
+
+        private RelayCommand<Ticket> checkTicketCommand;
+        public RelayCommand<Ticket> CheckTicketCommand
+        {
+            get => checkTicketCommand ?? (checkTicketCommand = new RelayCommand<Ticket>(
+                param =>
+                {
+                    TicketList.Remove(param);
+                }
+            ));
+        }
+
         private RelayCommand okTicketCommand;
         public RelayCommand OkTicketCommand
         {

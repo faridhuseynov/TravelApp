@@ -10,16 +10,26 @@
              d:DataContext="{d:DesignInstance vm:TicketsViewModel}">
     <UserControl.Resources>
         <DataTemplate x:Key="ticketLbTemplate">
-            <DockPanel>
-                <DockPanel DockPanel.Dock="Top">
-                    <Image DockPanel.Dock="Top"
-                       Source="C:\Users\Farid\source\repos\TravelApp\TravelApp\Icons\ticket.png"></Image>
-                    <Label DockPanel.Dock="Bottom" FontSize="20"
-                       Content="{Binding TicketName}"></Label>
+            <DockPanel LastChildFill="False" Height="100">
+                <DockPanel DockPanel.Dock="Left">
+                    <Image DockPanel.Dock="Left"
+                           Source="C:\Users\Farid\source\repos\TravelApp\TravelApp\Icons\ticket.png"></Image>
+                    <DockPanel DockPanel.Dock="Right" LastChildFill="False">
+                        <Label DockPanel.Dock="Top" FontSize="20"
+                           Content="{Binding TicketName}"></Label>
+                        <Label DockPanel.Dock="Bottom" FontSize="10"
+                               Foreground="Red"
+                               Content="{Binding TicketPath}"></Label>
+                    </DockPanel>
                 </DockPanel>
-                <Button DockPanel.Dock="Bottom" FontSize="20"
-                        Command="{Binding DataContext.DeleteTicket,ElementName=TicketWindow}"
+                <DockPanel DockPanel.Dock="Right" LastChildFill="False">
+                    <Button DockPanel.Dock="Left" FontSize="40"
+                        Command="{Binding DataContext.CheckTicketCommand,ElementName=TicketWindow}"
+                        CommandParameter="{Binding}">✈</Button>
+                    <Button DockPanel.Dock="Right" FontSize="40"
+                        Command="{Binding DataContext.DeleteTicketCommand,ElementName=TicketWindow}"
                         CommandParameter="{Binding}">❌</Button>
+                </DockPanel>
             </DockPanel>
         </DataTemplate>
     </UserControl.Resources>
@@ -34,6 +44,7 @@
                 Foreground="White"
                 Command="{Binding AddTicketCommand}">Add Ticket</Button>
         <ListBox Grid.Row="1" Margin="10"
+                 HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding TicketList}"
                  ItemTemplate="{StaticResource ticketLbTemplate}"></ListBox>
         <Button Margin="10" Grid.Row="2"

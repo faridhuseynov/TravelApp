@@ -36,4 +36,7 @@
     <DataTemplate DataType="{x:Type vm:TicketsViewModel}">
         <v:TicketsView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:CheckTicketViewModel}">
+        <v:CheckTicketView/>
+    </DataTemplate>
 </ResourceDictionary>

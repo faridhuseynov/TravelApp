@@ -155,6 +155,7 @@
     <Compile Include="ViewModels\AddNewTripTaskViewModel.cs" />
     <Compile Include="ViewModels\AddNewTripViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\CheckTicketViewModel.cs" />
     <Compile Include="ViewModels\DestinationsViewModel.cs" />
     <Compile Include="ViewModels\ReviewTripViewModel.cs" />
     <Compile Include="ViewModels\RouteMapViewModel.cs" />
@@ -174,6 +175,9 @@
     </Compile>
     <Compile Include="Views\AppView.xaml.cs">
       <DependentUpon>AppView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CheckTicketView.xaml.cs">
+      <DependentUpon>CheckTicketView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DestinationsView.xaml.cs">
       <DependentUpon>DestinationsView.xaml</DependentUpon>
@@ -255,6 +259,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AppView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CheckTicketView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
