@@ -131,6 +131,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Messages\CheckTicketMessage.cs" />
     <Compile Include="Messages\DestinationListAddedMessage.cs" />
     <Compile Include="Messages\DestinationsReviewMessage.cs" />
@@ -142,7 +143,6 @@
     <Compile Include="Messages\TripSelectedMessage.cs" />
     <Compile Include="Messages\UserLoggedInOrOutOrRegisteredMessage.cs" />
     <Compile Include="Models\DestinationList.cs" />
-    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskList.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Services\ApiService.cs" />
@@ -300,5 +300,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

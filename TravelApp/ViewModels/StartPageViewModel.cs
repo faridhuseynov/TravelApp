@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,7 +16,7 @@ using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
-    class StartPageViewModel : ViewModelBase
+    class StartPageViewModel : ViewModelBase,IDataErrorInfo
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
@@ -70,6 +71,10 @@ namespace TravelApp.ViewModels
                         Console.WriteLine("Login credentials incorrect. User not validated.");
                 }));
         }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName] => throw new NotImplementedException();
     }
 }
                 
