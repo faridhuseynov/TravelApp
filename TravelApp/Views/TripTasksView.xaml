@@ -31,7 +31,7 @@
                   Grid.Column="2"
                   IsReadOnly="False"
                   RowDetailsVisibilityMode="VisibleWhenSelected"
-                  ItemsSource="{Binding SelectedTrip.TaskList}" 
+                  ItemsSource="{Binding TaskListView}" 
                   EnableRowVirtualization="True">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn  Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Header="Status" Width="SizeToHeader"/>
