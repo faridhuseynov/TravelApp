@@ -10,21 +10,33 @@
              d:DataContext="{d:DesignInstance vm:SignUpViewModel}">
     <StackPanel>
         <Label FontSize="20">Name*</Label>
-        <TextBox FontSize="20"
+        <TextBox x:Name="NameTextBox" FontSize="20"
                  Margin="10,0"
-                 Text="{Binding NewUser.Name}"></TextBox>
+                 Text="{Binding NewUser.Name, ValidatesOnDataErrors=True,NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label FontSize="10" HorizontalContentAlignment="Center"
+               Content="{Binding (Validation.Errors)[0].ErrorContent,ElementName=NameTextBox}"
+               />
         <Label FontSize="20">Surname*</Label>
-        <TextBox FontSize="20"
+        <TextBox x:Name="SurnameTextBox"  FontSize="20"
                  Margin="10,0"
-                 Text="{Binding NewUser.Surname}"></TextBox>
+                 Text="{Binding NewUser.Surname, ValidatesOnDataErrors=True,NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label FontSize="10" HorizontalContentAlignment="Center"
+               Content="{Binding (Validation.Errors)[0].ErrorContent,ElementName=SurnameTextBox}"
+               />
         <Label FontSize="20">Username*</Label>
-        <TextBox FontSize="20"
+        <TextBox x:Name="UserNameTextBox" FontSize="20"
                  Margin="10,0"
-                 Text="{Binding NewUser.UserName}"></TextBox>
+                 Text="{Binding NewUser.UserName,ValidatesOnDataErrors=True,NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label FontSize="10" HorizontalContentAlignment="Center"
+               Content="{Binding (Validation.Errors)[0].ErrorContent,ElementName=UserNameTextBox}"
+               />
         <Label FontSize="20">Email*</Label>
-        <TextBox FontSize="20"           
+        <TextBox x:Name="EmailTextBox" FontSize="20"           
                  Margin="10,0"
-                 Text="{Binding NewUser.Email}"></TextBox>
+                 Text="{Binding NewUser.Email,ValidatesOnDataErrors=True,NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label FontSize="10" HorizontalContentAlignment="Center"
+               Content="{Binding (Validation.Errors)[0].ErrorContent,ElementName=EmailTextBox}"
+               />
         <Label FontSize="20">Password*</Label>
         <PasswordBox x:Name="passwordRegister" FontSize="20"
                      Margin="10,0"></PasswordBox>
@@ -40,9 +52,9 @@
                     FontSize="20"
                     HorizontalContentAlignment="Stretch">Browse</Button>
         </DockPanel>
-        <Label FontSize="20"
+        <!--<Label FontSize="20"
                Content="All fields with * should be filled in"
-               Foreground="Red"></Label>
+               Foreground="Red"></Label>-->
         <UniformGrid Rows="1" Columns="2">
             <Button FontSize="40"
                     Margin="20"

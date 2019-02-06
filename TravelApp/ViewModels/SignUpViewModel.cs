@@ -3,19 +3,21 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using TravelApp.Extensions;
 using TravelApp.Messages;
 using TravelApp.Models;
 using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
-    class SignUpViewModel : ViewModelBase
+    class SignUpViewModel : ViewModelBase,IDataErrorInfo
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
@@ -73,5 +75,8 @@ namespace TravelApp.ViewModels
                 }
             ));
         }
+
+        public string Error => throw new NotImplementedException();
+        public string this[string columnName] => this.Validate(columnName) ;
     }
 }

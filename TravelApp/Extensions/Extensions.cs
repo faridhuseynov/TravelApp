@@ -32,7 +32,6 @@ namespace TravelApp.Extensions
                 var validationResult = results.First();
                 error = validationResult.ErrorMessage;
             }
-
             return error;
         }
     }

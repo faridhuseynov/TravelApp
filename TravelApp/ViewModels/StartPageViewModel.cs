@@ -4,12 +4,14 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using TravelApp.Extensions;
 using TravelApp.Messages;
 using TravelApp.Models;
 using TravelApp.Services;
@@ -21,8 +23,9 @@ namespace TravelApp.ViewModels
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
 
-        private string checkUsername;
-        public string CheckUsername { get => checkUsername; set => Set(ref checkUsername, value); }
+        private string userName;
+        [Required]
+        public string Username { get => userName; set => Set(ref userName, value); }
 
         public StartPageViewModel(INavigationService navigation, AppDbContext db)
         {
@@ -47,7 +50,7 @@ namespace TravelApp.ViewModels
             get => loginCommand ?? (loginCommand = new RelayCommand<PasswordBox>(
                param =>
                 {
-                    var UserCheck = db.Users.FirstOrDefault(x => x.UserName == checkUsername);
+                    var UserCheck = db.Users.FirstOrDefault(x => x.UserName == userName);
                     if (UserCheck == null)
                     {
                         MessageBox.Show("User with that username not found");
@@ -73,8 +76,7 @@ namespace TravelApp.ViewModels
         }
 
         public string Error => throw new NotImplementedException();
-
-        public string this[string columnName] => throw new NotImplementedException();
+        public string this[string columnName]=> this.Validate(columnName); 
     }
 }
                 

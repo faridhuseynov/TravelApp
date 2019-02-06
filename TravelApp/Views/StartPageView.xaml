@@ -16,16 +16,21 @@
         <Label HorizontalAlignment="Center" 
                FontSize="20"
                Content="Username"></Label>
-        <TextBox FontSize="30"
+        <TextBox Name="UserName" FontSize="30"
                  HorizontalContentAlignment="Center"
-                 Text="{Binding CheckUsername}"
+                 Text="{Binding Username,
+            ValidatesOnDataErrors=True,
+            NotifyOnValidationError=True,
+            UpdateSourceTrigger=PropertyChanged}"
                  Width="400"></TextBox>
         <Label HorizontalAlignment="Center" 
                FontSize="20"
                Content="Password"></Label>
         <PasswordBox x:Name="password" FontSize="30"
-                     HorizontalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"                     
                      Width="400"></PasswordBox>
+        <Label FontSize="20"
+               Content="{Binding (Validation.Errors)[0].ErrorContent, ElementName=password}"/>
         <UniformGrid HorizontalAlignment="Stretch"
                      Rows="1" Columns="2"
                      Margin="50">
