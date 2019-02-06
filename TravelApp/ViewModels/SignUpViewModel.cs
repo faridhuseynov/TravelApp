@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,7 +19,7 @@ using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
-    class SignUpViewModel : ViewModelBase,IDataErrorInfo
+        class SignUpViewModel : ViewModelBase,IDataErrorInfo
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
@@ -38,34 +39,54 @@ namespace TravelApp.ViewModels
             this.message = message;
         }
 
+        //taken from StackOverflow for email validation
+        public bool IsValid(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
         private RelayCommand<PasswordBox> registerCommand;
         public RelayCommand<PasswordBox> RegisterCommand
         {
             get => registerCommand ?? (registerCommand = new RelayCommand<PasswordBox>(
                 param =>
                 {
-                    if (Regex.IsMatch(NewUser.Email, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-                @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$")==true && !String.IsNullOrEmpty(NewUser.Name) && !String.IsNullOrEmpty(NewUser.Surname)&& !String.IsNullOrEmpty(NewUser.UserName)
-                && !String.IsNullOrEmpty(param.Password))
+                    
+                    if (!String.IsNullOrEmpty(NewUser.Name) && !String.IsNullOrEmpty(NewUser.Surname)&& !String.IsNullOrEmpty(NewUser.UserName)
+                && !String.IsNullOrEmpty(param.Password) && IsValid(NewUser.Email))
                     {
-                        RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
-                        byte[] salt = new byte[32];
-                        csprng.GetBytes(salt);
-                        // Get the salt value
-                        NewUser.SaltValue = Convert.ToBase64String(salt);
-                        // Salt the password
-                        byte[] saltedPassword = Encoding.UTF8.GetBytes(NewUser.SaltValue + param.Password);
-                        // Hash the salted password using SHA256
-                        SHA256Managed hashstring = new SHA256Managed();
-                        byte[] hash = hashstring.ComputeHash(saltedPassword);
-                        // Save both the salt and the hash in the user's database record.
-                        NewUser.SaltValue = Convert.ToBase64String(salt);
-                        NewUser.HashValue = Convert.ToBase64String(hash);
-                        db.Users.Add(NewUser);
-                        db.SaveChanges();
-                        Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = NewUser.Id });
-                        UserDataClear();
-                        navigation.Navigate<TripBoardViewModel>();
+                        if (db.Users.FirstOrDefault(x => x.UserName == NewUser.UserName) != null)
+                            message.ShowError("This Username is already being used, please choose new username");
+                        else
+                        {
+                            RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
+                            byte[] salt = new byte[32];
+                            csprng.GetBytes(salt);
+                            // Get the salt value
+                            NewUser.SaltValue = Convert.ToBase64String(salt);
+                            // Salt the password
+                            byte[] saltedPassword = Encoding.UTF8.GetBytes(NewUser.SaltValue + param.Password);
+                            // Hash the salted password using SHA256
+                            SHA256Managed hashstring = new SHA256Managed();
+                            byte[] hash = hashstring.ComputeHash(saltedPassword);
+                            // Save both the salt and the hash in the user's database record.
+                            NewUser.SaltValue = Convert.ToBase64String(salt);
+                            NewUser.HashValue = Convert.ToBase64String(hash);
+                            db.Users.Add(NewUser);
+                            db.SaveChanges();
+                            Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = NewUser.Id });
+                            UserDataClear();
+                            navigation.Navigate<TripBoardViewModel>();
+                        }
                     }
                     else
                     {

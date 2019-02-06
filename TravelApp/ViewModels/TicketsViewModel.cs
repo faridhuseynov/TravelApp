@@ -34,13 +34,16 @@ namespace TravelApp.ViewModels
             {
                 SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.TripId);
                 TicketList = new ObservableCollection<Ticket>();
-                foreach (var item in SelectedTrip.Tickets)
+                if (SelectedTrip.Tickets != null)
                 {
-                    TicketList.Add(new Ticket
+                    foreach (var item in SelectedTrip.Tickets)
                     {
-                        TicketName = item.TicketName,
-                        TicketPath=item.TicketPath                    
-                    });
+                        TicketList.Add(new Ticket
+                        {
+                            TicketName = item.TicketName,
+                            TicketPath = item.TicketPath
+                        });
+                    }
                 }
             },true);
         }
@@ -93,7 +96,6 @@ namespace TravelApp.ViewModels
             get => okTicketCommand ?? (okTicketCommand = new RelayCommand(
                 () =>
                 {
-                    SelectedTrip.Tickets.Clear();
                     SelectedTrip.Tickets = new ObservableCollection<Ticket>();
                     foreach (var item in TicketList)
                     {

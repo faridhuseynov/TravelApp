@@ -91,6 +91,8 @@ namespace TravelApp.ViewModels
                         Trips.Remove(param);
                         var item = db.Trips.Where(x => x.Id == param.Id).FirstOrDefault();
                         item.Destinations.Clear();
+                        item.Tickets.Clear();
+                        item.TaskList.Clear();
                         db.SaveChanges();
                         db.Trips.Remove(param);
                         db.SaveChanges();

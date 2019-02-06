@@ -32,9 +32,12 @@ namespace TravelApp.ViewModels
             {
                 TaskListView = new ObservableCollection<TaskList>();
                 SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.TripId);
-                foreach (var item in SelectedTrip.TaskList)
+                if (SelectedTrip.TaskList != null)
                 {
-                    TaskListView.Add(new TaskList { TaskName = item.TaskName, Status = item.Status });
+                    foreach (var item in SelectedTrip.TaskList)
+                    {
+                        TaskListView.Add(new TaskList { TaskName = item.TaskName, Status = item.Status });
+                    }
                 }
             }, true);
         }
@@ -45,7 +48,6 @@ namespace TravelApp.ViewModels
             get => taskOkCommand ?? (taskOkCommand = new RelayCommand(
             () =>
             {
-                SelectedTrip.TaskList.Clear();
                 SelectedTrip.TaskList = new ObservableCollection<TaskList>();
                 foreach (var item in TaskListView)
                 {

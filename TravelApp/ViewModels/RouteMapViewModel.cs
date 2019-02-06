@@ -34,17 +34,20 @@ namespace TravelApp.ViewModels
             Messenger.Default.Register<MapReviewMessage>(this,msg=>
             {
                 var TripDestinations = db.Trips.FirstOrDefault(x => x.Id == msg.TripId).Destinations;
-                foreach (var item in TripDestinations)
+                if (TripDestinations != null)
                 {
-                    Locations.Add(new MapLocation
+                    foreach (var item in TripDestinations)
                     {
-                       Coordinates = new Location
-                       {
-                        Latitude = double.Parse(item.Latitude),
-                        Longitude = double.Parse(item.Longitude)
-                       }
+                        Locations.Add(new MapLocation
+                        {
+                            Coordinates = new Location
+                            {
+                                Latitude = double.Parse(item.Latitude),
+                                Longitude = double.Parse(item.Longitude)
+                            }
+                        }
+                        );
                     }
-                    );
                 }
             },true);
         }

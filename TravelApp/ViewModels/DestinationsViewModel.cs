@@ -40,18 +40,21 @@ namespace TravelApp.ViewModels
             Messenger.Default.Register<DestinationsReviewMessage>(this, msg =>
              {
                  SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.TripId);
-                 foreach (var item in SelectedTrip.Destinations)
+                 if (SelectedTrip.Destinations != null)
                  {
-                     CityView.Add(new City { CityName = item.CityName, ImagePath = item.ImagePath });
-                     Destinations.Add(new DestinationList()
+                     foreach (var item in SelectedTrip.Destinations)
                      {
-                         CityId=item.CityId,
-                         CityName = item.CityName,
-                         Currency = item.Currency,
-                         ImagePath = item.ImagePath,
-                         Latitude = item.Latitude,
-                         Longitude = item.Longitude                         
-                     });
+                         CityView.Add(new City { CityName = item.CityName, ImagePath = item.ImagePath });
+                         Destinations.Add(new DestinationList()
+                         {
+                             CityId = item.CityId,
+                             CityName = item.CityName,
+                             Currency = item.Currency,
+                             ImagePath = item.ImagePath,
+                             Latitude = item.Latitude,
+                             Longitude = item.Longitude
+                         });
+                     }
                  }
              }, true);
         }
@@ -107,7 +110,6 @@ namespace TravelApp.ViewModels
             get => okCommand ?? (okCommand = new RelayCommand(
                 () =>
                 {
-                    SelectedTrip.Destinations.Clear();
                     SelectedTrip.Destinations = new ObservableCollection<DestinationList>();
                     foreach (var item in Destinations)
                     {
