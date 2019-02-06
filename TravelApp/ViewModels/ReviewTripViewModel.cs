@@ -17,15 +17,16 @@ namespace TravelApp.ViewModels
     {
         private readonly INavigationService navigation;
         private readonly AppDbContext db;
+        private readonly IMessageService message;
 
         private Trip selectedTrip=new Trip();
         public Trip SelectedTrip { get => selectedTrip; set => Set(ref selectedTrip, value); }
 
-        public ReviewTripViewModel(INavigationService navigation, AppDbContext db)
+        public ReviewTripViewModel(INavigationService navigation, AppDbContext db, IMessageService message)
         {
             this.navigation = navigation;
             this.db = db;
-
+            this.message = message;
             Messenger.Default.Register<TripSelectedMessage>(this, msg =>
             {
                 SelectedTrip = db.Trips.FirstOrDefault(x => x.Id == msg.TripId);
@@ -64,6 +65,17 @@ namespace TravelApp.ViewModels
                 {
                     Messenger.Default.Send(new DestinationsReviewMessage { TripId = SelectedTrip.Id });
                     navigation.Navigate<DestinationsViewModel>();
+                }
+                ));
+        }
+
+        private RelayCommand bookingsViewCommand;
+        public RelayCommand BookingsViewCommand
+        {
+            get => bookingsViewCommand ?? (bookingsViewCommand = new RelayCommand(
+                () =>
+                {
+                    message.ShowYesNo("Had no desire to do this one, will you give me low grade because of this? 😊");
                 }
                 ));
         }

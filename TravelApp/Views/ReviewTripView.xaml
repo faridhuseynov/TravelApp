@@ -43,7 +43,8 @@
                 FontSize="30"
                 Background="LightGreen"
                 Foreground="Indigo"
-                Margin="10">BOOKINGS
+                Margin="10"
+                Command="{Binding BookingsViewCommand}">BOOKINGS
         </Button>
         <Button Grid.Row="4"
                 FontSize="30"

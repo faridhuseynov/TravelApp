@@ -49,9 +49,12 @@ namespace TravelApp.ViewModels
             get => logOutCommand ?? (logOutCommand = new RelayCommand(
                 () =>
                 {
-                    db.LoggedInUser = 0;
-                    db.SaveChanges();
-                    Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = db.LoggedInUser });
+                    //if (db.Users.FirstOrDefault(x => x.Id == db.LoggedInUser).Trips != null)
+                    //{
+                    //    db.LoggedInUser = 0;
+                    //    db.SaveChanges();
+                    //}
+                    //Messenger.Default.Send(new UserLoggedInOrOutOrRegistered { UserId = db.LoggedInUser });
                     navigation.Navigate<StartPageViewModel>();
                 }
             ));
