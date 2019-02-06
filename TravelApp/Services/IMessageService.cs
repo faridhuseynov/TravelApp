@@ -9,5 +9,7 @@ namespace TravelApp.Services
     interface IMessageService
     {
         bool ShowYesNo(string text, string title = "Your choice");
+        void ShowError(string text, string title = "Error");
+
     }
 }

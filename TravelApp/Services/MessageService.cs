@@ -14,5 +14,10 @@ namespace TravelApp.Services
             var result = MessageBox.Show(text, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
             return result == MessageBoxResult.Yes;
         }
+
+        public void ShowError(string text, string title = "Error")
+        {
+            MessageBox.Show(text, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }
